@@ -12,6 +12,6 @@ namespace Shared.Parsers.Interfaces
     /// </summary>
     public interface ILogParser
     {
-        LogItem Parse(string rawStringLog);
+        LogItem? Parse(string rawStringLog);
     }
 }

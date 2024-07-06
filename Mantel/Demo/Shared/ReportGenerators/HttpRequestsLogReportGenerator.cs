@@ -13,7 +13,7 @@ namespace Shared.ReportGenerators
     /// </summary>
     public class HttpRequestsLogReportGenerator : IReportGenerator
     {
-        public LogReport GenerateReport(IEnumerable<LogItem> logItems, string rawStringLogs)
+        public LogReport GenerateReport(IEnumerable<LogItem?> logItems, string rawStringLogs)
         {
             IEnumerable<HttpRequestLogItem?> items = logItems.Select(item => item as HttpRequestLogItem);
 

@@ -4,6 +4,7 @@ using LogsAPI.Tests.TestData;
 using Microsoft.AspNetCore.Components;
 using Shared.Entities;
 using Shared.Enums;
+using Shared.Exceptions;
 using Shared.Parsers;
 using Shared.Parsers.Interfaces;
 using Shared.ReportGenerators;
@@ -23,8 +24,23 @@ namespace LogsAPI.Tests
             _service = new LogService();
         }
 
+        [Fact]
+        public void CreateLogItem_Null_Test()
+        {
+            LogItem? logItem = _service.CreateLogItem(string.Empty, LogType.HttpRequest);
+
+            Assert.Null(logItem);
+        }
+
+        [Theory]
+        [InlineData("T H I S - I S - A N - I N V A L I D - L O G - M E S S A G E ")]
+        public void CreateLogItem_InvalidFormat_Test(string rawStringLog)
+        {
+            Assert.Throws<LogParserException>(() => _service.CreateLogItem(rawStringLog, LogType.HttpRequest));
+        }
+
         [Theory, ClassData(typeof(CreateLogItemTestData))]
-        public void GenerateLogItem_Test(
+        public void CreateLogItem_Test(
             string rawStringLog,
             LogType logType,
             IPAddress expectedIPAddress,
@@ -43,7 +59,13 @@ namespace LogsAPI.Tests
                 return;
             }
 
-            LogItem logItem = _service.CreateLogItem(rawStringLog, logType);
+            LogItem? logItem = _service.CreateLogItem(rawStringLog, logType);
+
+            if (logItem == null)
+            {
+                Assert.Fail("LogItem is null");
+                return;
+            }
 
             
             switch(logType)
@@ -84,15 +106,19 @@ namespace LogsAPI.Tests
                 return;
             }
 
-            IEnumerable<LogItem> logItems = _service.CreateLogItems(rawStringLogs, logType);
+            IEnumerable<LogItem?> logItems = _service.CreateLogItems(rawStringLogs, logType);
 
             switch(logType)
             {
                 case LogType.HttpRequest:
                     int index = 0;
 
-                    foreach(LogItem item in logItems)
+                    foreach(LogItem? item in logItems)
                     {
+                        if (item == null)
+                        {
+                            Assert.Fail("LogItem is null");
+                        }
                         HttpRequestLogItem? result = item as HttpRequestLogItem;
 
                         if (result == null)

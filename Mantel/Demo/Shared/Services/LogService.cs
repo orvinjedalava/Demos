@@ -55,7 +55,7 @@ namespace Shared.Services
         /// <param name="rawStringLog"></param>
         /// <param name="logType"></param>
         /// <returns></returns>
-        public LogItem CreateLogItem(string rawStringLog, LogType logType)
+        public LogItem? CreateLogItem(string rawStringLog, LogType logType)
         {
             ILogParser parser = GetLogParser(logType);
 
@@ -69,7 +69,7 @@ namespace Shared.Services
         /// <param name="rawStringLogs"></param>
         /// <param name="logType"></param>
         /// <returns></returns>
-        public IEnumerable<LogItem> CreateLogItems(string rawStringLogs, LogType logType)
+        public IEnumerable<LogItem?> CreateLogItems(string rawStringLogs, LogType logType)
         {
             List<string> rawStringLogList = rawStringLogs.Split(new string[] { Environment.NewLine, "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
@@ -84,7 +84,7 @@ namespace Shared.Services
         /// <returns></returns>
         public LogReport GenerateLogReport(string rawStringLogs, LogType logType)
         {
-            IEnumerable<LogItem> logItems = CreateLogItems(rawStringLogs, logType);
+            IEnumerable<LogItem?> logItems = CreateLogItems(rawStringLogs, logType);
 
             IReportGenerator reportGenerator = GetReportGenerator(logType);
 

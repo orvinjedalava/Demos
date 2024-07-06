@@ -15,10 +15,10 @@ namespace Shared.Services.Interfaces
     /// </summary>
     public interface ILogService
     {
-        LogItem CreateLogItem(string rawStringLog, LogType logType);
+        LogItem? CreateLogItem(string rawStringLog, LogType logType);
         LogReport GenerateLogReport(string rawStringLogs, LogType logType);
         ILogParser GetLogParser(LogType logType);
         IReportGenerator GetReportGenerator(LogType logType);
-        IEnumerable<LogItem> CreateLogItems(string rawStringLogs, LogType logType);
+        IEnumerable<LogItem?> CreateLogItems(string rawStringLogs, LogType logType);
     }
 }

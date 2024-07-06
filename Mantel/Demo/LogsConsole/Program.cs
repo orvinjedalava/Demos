@@ -43,7 +43,13 @@ while (true)
             string text = reader.ReadToEnd();
 
             ILogService logService = new LogService();
-            var report = logService.GenerateLogReport(text, myLogType) as HttpRequestsLogReport;
+            HttpRequestsLogReport? report = logService.GenerateLogReport(text, myLogType) as HttpRequestsLogReport;
+
+            if (report == null)
+            {
+                Console.WriteLine("Report generation failed.");
+                continue;
+            }
 
             Console.WriteLine("*** Generated Report ***");
             Console.WriteLine("");

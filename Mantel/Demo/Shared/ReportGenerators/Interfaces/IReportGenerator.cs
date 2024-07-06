@@ -12,6 +12,6 @@ namespace Shared.ReportGenerators.Interfaces
     /// </summary>
     public interface IReportGenerator
     {
-        LogReport GenerateReport(IEnumerable<LogItem> logItems, string rawStringLogs);
+        LogReport GenerateReport(IEnumerable<LogItem?> logItems, string rawStringLogs);
     }
 }
