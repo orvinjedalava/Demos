@@ -16,7 +16,7 @@ namespace Shared.Entities
            IPAddress ipAddress,
            DateTime timestamp,
            HttpMethod httpMethod,
-           string url,
+           string route,
            string httpProtocol,
            int httpResponseStatusCode,
            int port,
@@ -27,7 +27,7 @@ namespace Shared.Entities
             IPAddress = ipAddress;
             Timestamp = timestamp;
             HttpMethod = httpMethod;
-            Url = url;
+            Route = route;
             HttpProtocol = httpProtocol;
             HttpResponseStatusCode = httpResponseStatusCode;
             Port = port;
@@ -37,7 +37,7 @@ namespace Shared.Entities
         public IPAddress IPAddress { get; private set; }
         public DateTime Timestamp { get; private set; }
         public HttpMethod HttpMethod { get; private set; }
-        public string Url { get; private set; }
+        public string Route { get; private set; }
         public string HttpProtocol { get; private set; }
         public int HttpResponseStatusCode { get; private set; }
         public int Port { get; private set; }
@@ -57,7 +57,7 @@ namespace Shared.Entities
             return IPAddress.ToString() == item?.IPAddress.ToString()
                 && Timestamp == item?.Timestamp
                 && HttpMethod == item?.HttpMethod
-                && Url == item?.Url
+                && Route == item?.Route
                 && HttpProtocol == item?.HttpProtocol
                 && HttpResponseStatusCode == item?.HttpResponseStatusCode
                 && Port == item?.Port

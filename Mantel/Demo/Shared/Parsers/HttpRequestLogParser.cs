@@ -32,7 +32,7 @@ namespace Shared.Parsers
                 IPAddress ipAddress = IPAddress.Parse(logElements[0]);
                 DateTime timestamp = DateTime.ParseExact($"{logElements[3]} {logElements[4]}", "[dd/MMM/yyyy:HH:mm:ss zzzz]", null);
                 HttpMethod httpMethod = HttpMethod.Parse(logElements[5].Substring(1));
-                string url = logElements[6];
+                string route = logElements[6];
                 string httpProtocol = logElements[7].Substring(0, logElements[7].Length - 1);
                 int httpResponseStatusCode = int.Parse(logElements[8]);
                 int port = int.Parse(logElements[9]);
@@ -43,7 +43,7 @@ namespace Shared.Parsers
                     ipAddress: ipAddress,
                     timestamp: timestamp,
                     httpMethod: httpMethod,
-                    url: url,
+                    route: route,
                     httpProtocol: httpProtocol,
                     httpResponseStatusCode: httpResponseStatusCode,
                     port: port,

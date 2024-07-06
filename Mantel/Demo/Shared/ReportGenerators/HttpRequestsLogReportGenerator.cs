@@ -41,7 +41,8 @@ namespace Shared.ReportGenerators
         {
             List<RankedItem> result = new();
             int rank = 1;
-            foreach (var item in logItems.GroupBy(x => $"{x?.IPAddress.ToString()}{x?.Url}")
+            foreach (var item in logItems.Where(x=> x?.HttpResponseStatusCode == 200 && x?.HttpMethod == HttpMethod.Get)
+                                        .GroupBy(x => $"{x?.IPAddress.ToString()}{x?.Route}")
                                         .Select(group => new { Url = group.Key, Count = group.Count() })
                                         .OrderByDescending(x => x.Count))
             {
@@ -57,7 +58,7 @@ namespace Shared.ReportGenerators
         /// <summary>
         /// ASSUMPTION:
         /// For the demo, we simply return the first 3 hightest Active IP addresses based on the LINQ result below.
-        /// No special logic yet for visited urls who are tied in 1st, 2nd, or 3rd.
+        /// No special logic yet for visited IP Addresses who are tied in 1st, 2nd, or 3rd.
         /// </summary>
         /// <param name="logItems"></param>
         /// <returns></returns>

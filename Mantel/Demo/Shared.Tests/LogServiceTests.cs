@@ -46,7 +46,7 @@ namespace LogsAPI.Tests
             IPAddress expectedIPAddress,
             DateTime expectedTimestamp,
             HttpMethod expectedHttpMethod,
-            string expectedUrl,
+            string expectedRoute,
             string expectedHttpProtocol,
             int expectedHttpResponseStatusCode,
             int expectedPort,
@@ -83,7 +83,7 @@ namespace LogsAPI.Tests
                         result.IPAddress.Should().Be(expectedIPAddress);
                         result.Timestamp.Should().Be(expectedTimestamp);
                         result.HttpMethod.Should().Be(expectedHttpMethod);
-                        result.Url.Should().Be(expectedUrl);
+                        result.Route.Should().Be(expectedRoute);
                         result.HttpProtocol.Should().Be(expectedHttpProtocol);
                         result.HttpResponseStatusCode.Should().Be(expectedHttpResponseStatusCode);
                         result.Port.Should().Be(expectedPort);
