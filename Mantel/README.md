@@ -59,7 +59,7 @@ The application considers a URL as "visited" if it passes the 2 conditions below
 ## Option 2 - Console Application
 1. Go to Demos -> Mantel ->  Demo
 2. Open Demo.sln in Visual Studio ( I created the project using Microsoft Visual Studio Community 2022 - version 17.10.3 )
-3. Build Demo.sln  
+3. Go to Build menu -> Build Solution  
 4. Right click LogsConsole project -> Set as Startup Project
 
 ![image info](./images/Swagger3.png)
