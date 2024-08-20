@@ -1,8 +1,10 @@
 from typing import List, Optional
 import regex as re
+import os
 from presidio_analyzer import AnalyzerEngine, RecognizerResult, PatternRecognizer
 from presidio_analyzer.predefined_recognizers import CreditCardRecognizer, DateRecognizer
 from custom_date_recognizer import CustomDateRecognizer
+from presidio_anonymizer import AnonymizerEngine
 
 class NonValidatedCCRecognizer(CreditCardRecognizer):
     def validate_result(self, pattern_text: str) -> bool:
@@ -89,5 +91,20 @@ def generate_analyzer_results_file(source_file_name: str, destination_file_name:
 
     results_text: str = get_text(results, text)
 
+    os.makedirs(os.path.dirname(destination_file_name), exist_ok=True)
     with open(destination_file_name, 'w') as file:
         file.write(results_text)
+
+def generate_anonymized_text_file(source_file_name: str, destination_file_name: str) -> None:
+    with open(source_file_name, 'r') as file:
+        text = file.read()
+
+    results: List[RecognizerResult] = run_presidio_analyzer(text)
+
+    anonymizer = AnonymizerEngine()
+
+    result = anonymizer.anonymize(text=text,analyzer_results=results)
+
+    os.makedirs(os.path.dirname(destination_file_name), exist_ok=True)
+    with open(destination_file_name, 'w') as file:
+        file.write(result.text)
