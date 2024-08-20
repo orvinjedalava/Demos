@@ -21,13 +21,22 @@ def get_deny_list() -> List[str]:
         'mai state','mice strait','mice stake','mice tape','my steak'
     ]
 
+def get_allow_list() -> List[str]:
+    return [
+        'geez','Geez','yo','OTP','Miss','Bear','bush','Friendlier','Said','Fingers','english',
+        'Mobile','payee','Lingo','C.','You\'Re','Plumped','We\'Ve','Faqs'
+    ]
+
 def get_deny_patternrecognizer(case_sensitive:bool) -> PatternRecognizer:
     global_regex_flags: Optional[int] = re.DOTALL | re.MULTILINE
 
     if not case_sensitive:
         global_regex_flags |= re.IGNORECASE
 
-    return PatternRecognizer(supported_entity='CUSTOM_PII', deny_list=get_deny_list(), global_regex_flags=global_regex_flags)
+    return PatternRecognizer(
+        supported_entity='CUSTOM_PII', 
+        deny_list=get_deny_list(), 
+        global_regex_flags=global_regex_flags)
     
 def run_presidio_analyzer(text:str) -> List[RecognizerResult]:
     # Set up the engine, loads the NLP module (spaCy model by default) 
@@ -42,7 +51,9 @@ def run_presidio_analyzer(text:str) -> List[RecognizerResult]:
     # Call analyzer to get results
     results = analyzer.analyze(text=text,
                             entities=['CREDIT_CARD','CRYPTO','EMAIL_ADDRESS','IBAN_CODE','IP_ADDRESS','NRP','LOCATION','PERSON','PHONE_NUMBER','MEDICAL_LICENSE','URL','CUSTOM_DATE_TIME','CUSTOM_PII'],
-                            language='en')
+                            language='en', 
+                            allow_list=get_allow_list()
+                            )
     filtered_results: List[RecognizerResult] = filter_results(results, text)
 
     return filtered_results
@@ -65,9 +76,9 @@ def get_text(results: List[RecognizerResult], text:str) -> str:
     for result in results:
         entity_type = result.entity_type
         entity_text = text[result.start:result.end]
-        metadata = result.recognition_metadata
+        recognizer_name = result.recognition_metadata['recognizer_name']
         score = result.score
-        result_text += f"- {entity_text} as {entity_type} with score {score}. Explanation: {metadata}\n"
+        result_text += f"- {entity_text} as {entity_type} with score {score}. Recognizer: {recognizer_name}\n"
     return result_text
 
 def generate_analyzer_results_file(source_file_name: str, destination_file_name: str) -> None:
