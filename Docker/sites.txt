@@ -3,3 +3,11 @@ https://www.youtube.com/watch?v=31ieHmcTUOk&list=PL4cUxeGkcC9hxjeEtdHFNYMtCpjNBm
 
 Microsoft Learn - Create a web project
 https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-8.0&tabs=visual-studio-code
+
+Microsoft Learn - Dockerize a .NET Core Web api
+https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/docker/building-net-docker-images?view=aspnetcore-8.0
+
+Stack Overflow - Explanation on default ASPNETCORE ports setup in Docker Containers
+https://stackoverflow.com/questions/48669548/why-does-aspnet-core-start-on-port-80-from-within-docker/48669703
+
+
