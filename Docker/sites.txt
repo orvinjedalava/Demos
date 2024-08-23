@@ -13,3 +13,7 @@ https://stackoverflow.com/questions/48669548/why-does-aspnet-core-start-on-port-
 Medium - How to manually deploy a React app to Azure App Service
 https://medium.com/@kagamimendoza/how-to-manually-deploy-a-react-app-to-azure-app-service-9a89a194c354
 
+Medium - Dockerize React applications with Nginx
+https://medium.com/@alinaseri/dockerize-react-applications-with-nginx-17f752deb54
+ 
+
