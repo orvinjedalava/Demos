@@ -5,13 +5,24 @@ services:
   # Define the service for the Hello World React application.
   # This service will create an image named "docker-helloworldreact"
   helloworldreact:
-    # Build the Docker image from the Dockerfile located in the hello-world-react directory
+    # Build the Docker image from the Dockerfile located in the /hello-world-react directory
     build: ./hello-world-react
     # Name the container helloworldreact_c
     container_name: helloworldreact_c
-    # Map port 3000 on the host to port 3000 in the container
+    # Map port 3000 on the host to port 3000 in the container ( ReactJS application runs on port 3000 by default )
     ports:
       - "3000:3000"
+
+  # Define the service for the Hello World React application.
+  # This service will create an image named "docker-netcorewebapi"
+  netcorewebapi:
+    # Build the Docker image from the Dockerfile located in the /netcore_webapi directory
+    build: ./netcore_webapi
+    # Name the container netcorewebapi_c
+    container_name: netcorewebapi_c
+    # Map port 5000 on the host to port 8080 in the container ( .NET Core Web API applications runs on port 8080 in docker containers by default )
+    ports:
+      - "5000:8080"
 
 # RUNNING THE DOCKER-COMPOSE FILE TO CREATE IMAGE AND CONTAINER
 # =============================================================
