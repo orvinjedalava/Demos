@@ -1,13 +1,15 @@
-Docker Crash Course
+Youtube - Docker Crash Course
 https://www.youtube.com/watch?v=31ieHmcTUOk&list=PL4cUxeGkcC9hxjeEtdHFNYMtCpjNBm3h7
 
-Microsoft Learn - Create a web project
+Microsoft Learn - Create a ASPNETCORE Web API project using Visual Studio Code
 https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-8.0&tabs=visual-studio-code
 
-Microsoft Learn - Dockerize a .NET Core Web api
+Microsoft Learn - Building a docker image for ASPNETCORE Web API
 https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/docker/building-net-docker-images?view=aspnetcore-8.0
 
 Stack Overflow - Explanation on default ASPNETCORE ports setup in Docker Containers
 https://stackoverflow.com/questions/48669548/why-does-aspnet-core-start-on-port-80-from-within-docker/48669703
 
+Medium - How to manually deploy a React app to Azure App Service
+https://medium.com/@kagamimendoza/how-to-manually-deploy-a-react-app-to-azure-app-service-9a89a194c354
 
