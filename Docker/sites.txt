@@ -15,5 +15,8 @@ https://medium.com/@kagamimendoza/how-to-manually-deploy-a-react-app-to-azure-ap
 
 Medium - Dockerize React applications with Nginx
 https://medium.com/@alinaseri/dockerize-react-applications-with-nginx-17f752deb54
+
+Youtube - Github action CI/CD pipeline for deploying React website to Azure App Service
+https://www.youtube.com/watch?v=5jkXR6pa1OA
  
 
