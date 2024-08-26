@@ -1,4 +1,4 @@
-name: ReactJS Docker Image CI to Azure Container Registry
+name: ReactJS Docker Image CI to Azure Container Registry and Azure Container Apps
 
 on:
   workflow_dispatch:
@@ -30,9 +30,21 @@ jobs:
 
     - name: Build and tag Docker image
       run: |
-        docker build -t ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:latest ./Docker/hello-world-react
+        docker build -t ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:${{ github.sha }} ./Docker/hello-world-react
+        docker tag ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:${{ github.sha }} ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:latest
         
     - name: Push Docker image to ACR
       run: |
+        docker push ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:${{ github.sha }}
         docker push ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:latest
+
+    #- name: Deploy to Azure Container Apps
+      #run: |
+        #az containerapp update \
+         # --name ${{ secrets.CONTAINER_APP_NAME }} \
+          #--resource-group ${{ secrets.RESOURCE_GROUP }} \
+          #--image ${{ secrets.ACR_NAME }}.azurecr.io/myapp:latest \
+          #--registry-server ${{ secrets.ACR_NAME }}.azurecr.io \
+          #--ingress external \
+          #--target-port 80
         
