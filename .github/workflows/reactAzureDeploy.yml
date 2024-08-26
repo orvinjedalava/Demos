@@ -4,7 +4,7 @@ on: [push]
 
 env:
   AZURE_WEBAPP_NAME: MyReactWithGitHubActions
-  AZURE_WEBAPP_PACKAGE_PATH: ./Docker/hello-world-react
+  AZURE_WEBAPP_PACKAGE_PATH: ../../Docker/hello-world-react
   NODE_VERSION: '20.x'
 
 jobs:
