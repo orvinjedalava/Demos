@@ -30,7 +30,7 @@ jobs:
 
     - name: Build and tag Docker image
       run: |
-        docker build -t ${{ env.ACR_NAME }}.azurecr.io/${{ env.ACR_REPO }}:${{ github.sha }} .
+        docker build -t ${{ env.ACR_NAME }}.azurecr.io/${{ env.ACR_REPO }}:${{ github.sha }} ./Docker/hello-world-react
         
     - name: Push Docker image to ACR
       run: |
