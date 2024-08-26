@@ -30,9 +30,9 @@ jobs:
 
     - name: Build and tag Docker image
       run: |
-        docker build -t ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:${{ github.sha }} ./Docker/hello-world-react
+        docker build -t ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:latest ./Docker/hello-world-react
         
     - name: Push Docker image to ACR
       run: |
-        docker push ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:${{ github.sha }}
+        docker push ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:latest
         
