@@ -26,7 +26,7 @@ jobs:
       uses: azure/CLI@v2.0.0
       with:
         inlineScript: |
-          az acr login --name ${{ env.ACR_NAME }}
+          az acr login --name ${{ env.ACR_NAME }} --expose-token
 
     - name: Build and tag Docker image
       run: |
