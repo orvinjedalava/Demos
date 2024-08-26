@@ -38,13 +38,13 @@ jobs:
         docker push ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:${{ github.sha }}
         docker push ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:latest
 
-    - name: Deploy to Azure Container Apps
-      uses: azure/container-apps-deploy-action@v2
-      with:
-        acrName: ${{ secrets.AZURE_ACR_USERNAME }}
-        containerAppName: ${{ secrets.AZURE_CONTAINER_APP_NAME }}
-        resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
-        imageToDeploy: ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:latest
+    #- name: Deploy to Azure Container Apps
+    #  uses: azure/container-apps-deploy-action@v2
+    #  with:
+    #    acrName: ${{ secrets.AZURE_ACR_USERNAME }}
+    #    containerAppName: ${{ secrets.AZURE_CONTAINER_APP_NAME }}
+    #    resourceGroup: ${{ secrets.AZURE_RESOURCE_GROUP }}
+    #    imageToDeploy: ${{ secrets.AZURE_ACR_LOGIN_SERVER }}/${{ env.ACR_REPO }}:latest
         
       
       
