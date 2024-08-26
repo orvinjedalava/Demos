@@ -31,3 +31,7 @@ https://www.youtube.com/watch?v=-KojzBMM2ic&t=26s
 Microsoft Learn - Deploy to Azure Container Apps with GitHub Actions
 https://learn.microsoft.com/en-us/azure/container-apps/github-actions
 
+Youtube - Build and Deploy Custom Container Images from GitHub Action to Azure App Service using ACR
+https://www.youtube.com/watch?v=B74kR4VFOfw&t=10s
+
+
