@@ -18,5 +18,9 @@ https://medium.com/@alinaseri/dockerize-react-applications-with-nginx-17f752deb5
 
 Youtube - Github action CI/CD pipeline for deploying React website to Azure App Service
 https://www.youtube.com/watch?v=5jkXR6pa1OA
- 
 
+Stack Overflow - Docker login to Azure Container Registry
+https://stackoverflow.com/questions/58956533/docker-login-to-azure-container-registry-by-service-principle#:~:text=You%20do%20not%20have%20to%20set%20the%20username,password%20from%20the%20portal%20and%20it%20should%20work.
+
+Microsoft Learn - Configure a GitHub Action to create a container instance
+https://learn.microsoft.com/en-us/azure/container-instances/container-instances-github-action
