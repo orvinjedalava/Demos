@@ -1,26 +1,15 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { Navbar } from './components/Navbar';
+import { Home } from './components/Home';
 
 function App(): JSX.Element {
-  const title: string = 'Welcome to the new blog';
-  const likes: number = 50;
-  //const person = { name: 'yoshi', age: 30 };
-  const link = "http://www.google.com";
-
   return (
     <div className="App">
+      <Navbar />
       <div className="content">
-        <h1>{ title }</h1>
-        <p>Liked { likes } times</p>
-
-        <p>{ 10 }</p>
-        <p>{ "hello, ninjas" }</p>
-        <p>{ [1,2,3,4,5] }</p>
-        <p>{ Math.random() * 10}</p>
-
-        <a href={ link } >Google Site</a>
-
+        <Home />
       </div>
     </div>
   );
