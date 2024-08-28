@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import './index.css'; // Acts as a global CSS file that will be applied to all modules currently displayed in the browser.
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
