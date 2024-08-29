@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import { Navbar } from './components/Navbar';
 import { Home } from './components/Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Create } from './components/Create';
 
 function App(): JSX.Element {
   return (
@@ -11,9 +12,13 @@ function App(): JSX.Element {
         <Navbar />
         <div className="content">
           <Switch>
-            <Route path="/">
+            <Route exact path="/">
               <Home />
             </Route>
+            <Route path="/create">
+              <Create />
+            </Route>
+            
           </Switch>
         </div>
       </div>
