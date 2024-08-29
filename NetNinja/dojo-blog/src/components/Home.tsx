@@ -25,8 +25,6 @@ export const Home: React.FC = () => {
     return (
         <div className="home">
             <BlogList title='All Blogs' blogs={blogs} handleDelete={handleDelete}/>
-            <button onClick={() => setName('mel')}>Change Name</button>
-            <p>{ name }</p>
         </div>
     )
 }

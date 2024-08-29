@@ -3,3 +3,9 @@ https://www.youtube.com/playlist?list=PLC3y8-rFHvwi1AXijGTKM0BKtHzVC-LSK
 
 Youtube - Full Modern React Tutorial
 https://www.youtube.com/playlist?list=PL4cUxeGkcC9gZD-Tvwfod2gaISzfRiP9d
+
+Youtube - Up & Running with JSON Server
+https://www.youtube.com/watch?v=mAqYJF-yxO8
+
+PowerShell - Install and Run a json-server
+npx json-server --watch data/db.json --port 8000
