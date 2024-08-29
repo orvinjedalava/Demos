@@ -1,4 +1,4 @@
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useNavigate, NavigateFunction } from "react-router-dom";
 import { useFetch } from "../hooks/useFetch";
 import { Data } from "../types/MyTypes";
 import { useState } from "react";
@@ -7,7 +7,7 @@ export const BlogDetails = () => {
     const { id } = useParams<{ id: string }>();
     const { data, isPending, error } = useFetch('http://localhost:8000/blogs/' + id);
     const blog = data as Data;
-    const history = useHistory();
+    const navigate:  NavigateFunction = useNavigate();
     const [ isDeletePending, setIsDeletePending ] = useState<boolean>(false);
 
     const handleClick = () => {
@@ -15,7 +15,7 @@ export const BlogDetails = () => {
         fetch('http://localhost:8000/blogs/' + blog.id, {
             method: 'DELETE'
         }).then(() => {
-            history.push('/');
+            navigate('/');
             setIsDeletePending(false);
         });
     }
