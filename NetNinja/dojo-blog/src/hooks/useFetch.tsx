@@ -3,7 +3,7 @@ import { Data } from '../types/MyTypes';
 
 export const useFetch = (url: string) => {
 
-    const[data, setData] = useState<Data[]>([]);
+    const[data, setData] = useState<Data[] | Data>([]);
     const[isPending, setIsPending] = useState<boolean>(true);
     const[error, setError] = useState<string | null>(null);
 
@@ -20,7 +20,7 @@ export const useFetch = (url: string) => {
                     }
                     return res.json();
                 })
-                .then((data: Data[]) => {
+                .then((data: Data[] | Data) => {
                     setData(data);
                     setIsPending(false);
                     setError(null);
