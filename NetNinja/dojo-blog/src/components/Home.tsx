@@ -1,30 +1,31 @@
 import { useState, useEffect } from 'react';
 import { BlogList } from './BlogList';
 
+type Blog = {
+    id: number;
+    title: string;
+    body: string;
+    author: string;
+}
+
 export const Home: React.FC = () => {
-    const[blogs, setBlogs] = useState([
-        { title: 'My new website', body: 'lorem ipsum...', author: 'mario', id: 1 },
-        { title: 'Welcome party!', body: 'lorem ipsum...', author: 'yoshi', id: 2 },
-        { title: 'Web dev top tips', body: 'lorem ipsum...', author: 'jed', id: 3 }
-    ]);
-
-    const [name, setName] = useState('jed');
-
-    const handleDelete = (id: number) => {
-        const newBlogs = blogs.filter(blog => blog.id !== id);
-        setBlogs(newBlogs);
-    }
+    const[blogs, setBlogs] = useState<Blog[]>([]);
 
     // This is the function that is going to run everytime there is a re-render
     // We can pass a dependency array to indicate the objects that it keeps track of before running the useEffect function.
     useEffect(() => {
-        console.log('use effect ran');
-        console.log(name);
-    }, [name]);
+        fetch('http://localhost:8000/blogs')
+            .then(res => {
+                return res.json();
+            })
+            .then(data => {
+                setBlogs(data);
+            })
+    }, []);
 
     return (
         <div className="home">
-            <BlogList title='All Blogs' blogs={blogs} handleDelete={handleDelete}/>
+            {blogs && <BlogList title='All Blogs' blogs={blogs}/>}
         </div>
     )
 }
