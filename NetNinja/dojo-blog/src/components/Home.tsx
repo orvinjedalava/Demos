@@ -7,10 +7,16 @@ export const Home: React.FC = () => {
         { title: 'Welcome party!', body: 'lorem ipsum...', author: 'yoshi', id: 2 },
         { title: 'Web dev top tips', body: 'lorem ipsum...', author: 'jed', id: 3 }
     ]);
+
+    const handleDelete = (id: number) => {
+        const newBlogs = blogs.filter(blog => blog.id !== id);
+        setBlogs(newBlogs);
+    }
+
     return (
         <div className="home">
-            <BlogList title='All Blogs' blogs={blogs}/>
-            <BlogList title='Mario Blogs' blogs={blogs.filter(blog => blog.author === 'mario')}/>
+            <BlogList title='All Blogs' blogs={blogs} handleDelete={handleDelete}/>
+            <BlogList title='Mario Blogs' blogs={blogs.filter(blog => blog.author === 'mario')} handleDelete={handleDelete}/>
         </div>
     )
 }
