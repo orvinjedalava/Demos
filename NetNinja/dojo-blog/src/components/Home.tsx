@@ -10,6 +10,7 @@ export const Home: React.FC = () => {
     return (
         <div className="home">
             <BlogList title='All Blogs' blogs={blogs}/>
+            <BlogList title='Mario Blogs' blogs={blogs.filter(blog => blog.author === 'mario')}/>
         </div>
     )
 }
