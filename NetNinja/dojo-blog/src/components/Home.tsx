@@ -1,6 +1,4 @@
-import { useState, useEffect } from 'react';
 import { BlogList } from './BlogList';
-import { Data } from '../types/MyTypes';
 import { useFetch } from '../hooks/useFetch';
 
 export const Home: React.FC = () => {

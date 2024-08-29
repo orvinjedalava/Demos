@@ -10,8 +10,10 @@ export const useFetch = (url: string) => {
     // This is the function that is going to run everytime there is a re-render
     // We can pass a dependency array to indicate the objects that it keeps track of before running the useEffect function.
     useEffect(() => {
+        const abortController = new AbortController();
+
         setTimeout(() => {
-            fetch(url)
+            fetch(url, { signal: abortController.signal })
                 .then((res: Response) => {
                     if (!res.ok) {
                         throw Error('Could not fetch the data for that resource');
@@ -24,10 +26,18 @@ export const useFetch = (url: string) => {
                     setError(null);
                 })
                 .catch((err: Error) => {
-                    setError(err.message);
-                    setIsPending(false);
+                    if (err.name === 'AbortError') {
+                        console.log('fetch aborted'); 
+                    } 
+                    else { 
+                        setError(err.message);
+                        setIsPending(false);
+                    }
+                    
                 })
-        }, 1000)
+        }, 1000);
+
+        return () => abortController.abort();
     }, [url]);
 
     return { data, isPending, error };
