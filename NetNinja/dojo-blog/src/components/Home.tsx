@@ -8,21 +8,25 @@ export const Home: React.FC = () => {
         { title: 'Web dev top tips', body: 'lorem ipsum...', author: 'jed', id: 3 }
     ]);
 
+    const [name, setName] = useState('jed');
+
     const handleDelete = (id: number) => {
         const newBlogs = blogs.filter(blog => blog.id !== id);
         setBlogs(newBlogs);
     }
 
     // This is the function that is going to run everytime there is a re-render
+    // We can pass a dependency array to indicate the objects that it keeps track of before running the useEffect function.
     useEffect(() => {
         console.log('use effect ran');
-        console.log(blogs);
-    });
+        console.log(name);
+    }, [name]);
 
     return (
         <div className="home">
             <BlogList title='All Blogs' blogs={blogs} handleDelete={handleDelete}/>
-            <BlogList title='Mario Blogs' blogs={blogs.filter(blog => blog.author === 'mario')} handleDelete={handleDelete}/>
+            <button onClick={() => setName('mel')}>Change Name</button>
+            <p>{ name }</p>
         </div>
     )
 }
