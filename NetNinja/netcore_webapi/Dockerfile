@@ -32,6 +32,7 @@ ENTRYPOINT ["dotnet", "netcore_webapi.dll"]
 # =====================
 # To run the container, run the following command
 # docker run -dp 5000:8080 <image_name>:<tag> ( NOTE: .NET Core runs on port 8080 by default, but we are mapping it to port 5000 on the host machine)
+# example: docker run -dp 5000:8080 netcore_webapi:latest
 
 # FIND THE CONTAINER
 # ==================
