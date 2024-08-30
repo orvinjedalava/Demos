@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, NavigateFunction } from 'react-router-dom';
+import { useAuth } from '../authentications/AuthContext';
 
 // React.FC is short for React.FunctionComponent. It is a type that describes a function component. 
 // It is a generic type that takes props as a type argument.
@@ -9,12 +10,38 @@ export const Navbar: React.FC = () => {
         borderRadius: '8px'
     };
 
+    const navBarLoginButtonStyle = {
+        color: "white",
+        backgroundColor: 'green',
+        borderRadius: '8px'
+    };
+
+    const navBarLogoutButtonStyle = {
+        color: "white",
+        backgroundColor: 'blue',
+        borderRadius: '8px'
+    };
+
+    const navigate: NavigateFunction = useNavigate();
+    const { isAuthenticated, login, logout } = useAuth();
+
+    const handleLogin = () => {
+        navigate('/login');
+    }
+
+    const handleLogout = () => {
+        logout();
+        navigate('/login');
+    }
+
     return (
         <nav className="navbar">
             <h1>The Dojo Blog</h1>
             <div className="links">
-                <Link to="/">Home</Link>
-                <Link to="/create" style={ navBarLinkButtonStyle }>New Blog</Link>
+                {isAuthenticated 
+                 && <Link to="/">Home</Link>
+                 && <Link to="/create" style={ navBarLinkButtonStyle }>New Blog</Link>
+                 && <a style={navBarLogoutButtonStyle} onClick={handleLogout}>Logout</a>}
             </div>
         </nav>
     );

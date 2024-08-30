@@ -6,22 +6,28 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Create } from './components/Create';
 import { BlogDetails } from './components/BlogDetails';
 import { NotFound } from './components/NotFound';
+import { Login } from './authentications/Login';
+import { PrivateRoute } from './authentications/PrivateRoute';
+import { AuthProvider } from './authentications/AuthContext';
 
 function App(): JSX.Element {
   return (
-    <Router>
-      <div className="App">
-        <Navbar />
-        <div className="content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/create" element={<Create />}/>
-            <Route path="/blogs/:id" element={<BlogDetails />}/>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+    <AuthProvider>
+      <Router>
+        <div className="App">
+          <Navbar />
+          <div className="content">
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/" element={<PrivateRoute element={<Home />} />} />
+              <Route path="/create" element={<PrivateRoute element={<Create />} />} />
+              <Route path="/blogs/:id" element={<PrivateRoute element={<BlogDetails />} />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </AuthProvider>
   );
 }
 
