@@ -70,6 +70,8 @@ if (app.Environment.IsDevelopment())
     
 }
 
+app.UseCors("AllowLocalHostOrigin");
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

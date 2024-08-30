@@ -13,7 +13,39 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
-  const login = () => setIsAuthenticated(true);
+  const login = () => {
+    const loginBasicUrl: string | undefined = process.env.REACT_APP_LOGIN_BASIC_API_URL;
+
+    if (!loginBasicUrl) {
+      throw new Error('REACT_APP_LOGIN_BASIC_API_URL is undefined');
+    }
+
+    const encodedCredentials = btoa(`${process.env.REACT_APP_LOGIN_BASIC_USERNAME}:${process.env.REACT_APP_LOGIN_BASIC_PASSWORD}`)
+    
+    const abortController = new AbortController();
+
+    fetch(loginBasicUrl as string, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Basic ${encodedCredentials}`
+      }, 
+      signal: abortController.signal 
+      })
+      .then((res: Response) => {
+          if (!res.ok) {
+              throw Error('Could not login url');
+          }
+          setIsAuthenticated(true);
+      })
+      .catch((err: Error) => {
+          if (err.name === 'AbortError') {
+              console.log('login aborted'); 
+          } 
+          else { 
+              console.log(err.message);
+          }
+      })
+  }
   const logout = () => setIsAuthenticated(false);
 
   return (
