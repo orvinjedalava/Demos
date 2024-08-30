@@ -7,9 +7,13 @@ export const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    login();
-    navigate('/');
+  const handleLogin = async () => {
+    const result: boolean = await login();
+    
+    if (result) {
+      navigate('/');
+    }
+    
   };
 
   return (
