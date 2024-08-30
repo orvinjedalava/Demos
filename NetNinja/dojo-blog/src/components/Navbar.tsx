@@ -7,19 +7,22 @@ export const Navbar: React.FC = () => {
     const navBarLinkButtonStyle = {
         color: "white",
         backgroundColor: '#f1356d',
-        borderRadius: '8px'
+        borderRadius: '8px',
+        cursor: 'pointer'
     };
 
     const navBarLoginButtonStyle = {
         color: "white",
         backgroundColor: 'green',
-        borderRadius: '8px'
+        borderRadius: '8px',
+        cursor: 'pointer'
     };
 
     const navBarLogoutButtonStyle = {
         color: "white",
         backgroundColor: 'blue',
-        borderRadius: '8px'
+        borderRadius: '8px',
+        cursor: 'pointer'
     };
 
     const navigate: NavigateFunction = useNavigate();
@@ -38,10 +41,9 @@ export const Navbar: React.FC = () => {
         <nav className="navbar">
             <h1>The Dojo Blog</h1>
             <div className="links">
-                {isAuthenticated 
-                 && <Link to="/">Home</Link>
-                 && <Link to="/create" style={ navBarLinkButtonStyle }>New Blog</Link>
-                 && <a style={navBarLogoutButtonStyle} onClick={handleLogout}>Logout</a>}
+                 {isAuthenticated && <Link to="/">Home</Link>}
+                 {isAuthenticated && <Link to="/create" style={ navBarLinkButtonStyle }>New Blog</Link>}
+                 {isAuthenticated && <a style={navBarLogoutButtonStyle} onClick={handleLogout}>Logout</a>}
             </div>
         </nav>
     );
