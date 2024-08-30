@@ -9,3 +9,11 @@ https://www.youtube.com/watch?v=mAqYJF-yxO8
 
 PowerShell - Install and Run a json-server
 npx json-server --watch data/db.json --port 8000
+
+Youtube - Basic authentication: How to add in ASP.NET Core
+https://www.youtube.com/watch?v=rGfxURLQp7o
+
+Stack Overflow - Why is Intellisense not working in my VS Code?
+https://stackoverflow.com/questions/70876161/why-is-intellisense-not-working-in-my-vs-code
+
+
