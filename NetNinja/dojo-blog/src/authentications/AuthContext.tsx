@@ -3,9 +3,15 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 interface AuthContextType {
   isAuthenticated: boolean;
   loginBasic: () => Promise<boolean>;
-  jwtToken: string | null;
+  jwtToken: JwtToken | null;
   loginJwt: () => Promise<boolean>;
   logout: () => void;
+}
+
+interface JwtToken {
+  access_token: string;
+  token_type: string;
+  expires_in: string;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -14,7 +20,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 // { children: React.ReactNode } is a TypeScript syntax that says the object passed to AuthProvider must have a property named children that is of type React.ReactNode.
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [jwtToken, setJwtToken] = useState<string | null>(null);
+  const [jwtToken, setJwtToken] = useState<JwtToken | null>(null);
 
   // define the function that will be used to login using basic authentication
   const loginBasic = async (): Promise<boolean> => {
@@ -42,7 +48,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
 
       setIsAuthenticated(true);
+
       return true;
+      
     } catch (err: any) {
       if (err.name === 'AbortError') {
         console.log('login aborted');
@@ -69,7 +77,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const formData = new URLSearchParams({
         grant_type: 'client_credentials'
       }).toString();
-      
+
       const res: Response = await fetch(loginJwtUrl, {
         method: 'POST',
         headers: {
@@ -84,7 +92,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         throw new Error('Could not login url');
       }
 
+      const data: JwtToken = await res.json();
+      setJwtToken(data);
+
       setIsAuthenticated(true);
+
       return true;
     } catch (err: any) {
       if (err.name === 'AbortError') {
