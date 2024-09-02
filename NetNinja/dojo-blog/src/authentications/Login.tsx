@@ -4,11 +4,11 @@ import { useAuth } from './AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
-  const { login } = useAuth();
+  const { loginBasic, loginJwt } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
-    const result: boolean = await login();
+  const handleLoginBasic = async () => {
+    const result: boolean = await loginBasic();
     
     if (result) {
       navigate('/');
@@ -16,10 +16,19 @@ export const Login = () => {
     
   };
 
+  const handleLoginJwt = async () => {
+    const result: boolean = await loginJwt();
+    
+    if (result) {
+      navigate('/');
+    }
+  }
+
   return (
     <div>
       <h2>Login</h2>
-      <button onClick={handleLogin}>Login</button>
+      <button onClick={handleLoginBasic}>Login Basic</button>
+      <button onClick={handleLoginJwt}>Login JWT</button>
     </div>
   );
 };

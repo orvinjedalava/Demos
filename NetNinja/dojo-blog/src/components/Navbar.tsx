@@ -26,7 +26,7 @@ export const Navbar: React.FC = () => {
     };
 
     const navigate: NavigateFunction = useNavigate();
-    const { isAuthenticated, login, logout } = useAuth();
+    const { isAuthenticated, loginBasic, logout } = useAuth();
 
     const handleLogin = () => {
         navigate('/login');

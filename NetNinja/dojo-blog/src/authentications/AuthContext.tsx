@@ -2,7 +2,9 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  login: () => Promise<boolean>;
+  loginBasic: () => Promise<boolean>;
+  jwtToken: string | null;
+  loginJwt: () => Promise<boolean>;
   logout: () => void;
 }
 
@@ -12,20 +14,22 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 // { children: React.ReactNode } is a TypeScript syntax that says the object passed to AuthProvider must have a property named children that is of type React.ReactNode.
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [jwtToken, setJwtToken] = useState<string | null>(null);
 
-  const login = async (): Promise<boolean> => {
+  // define the function that will be used to login using basic authentication
+  const loginBasic = async (): Promise<boolean> => {
     const loginBasicUrl: string | undefined = process.env.REACT_APP_LOGIN_BASIC_API_URL;
 
     if (!loginBasicUrl) {
       throw new Error('REACT_APP_LOGIN_BASIC_API_URL is undefined');
     }
 
-    const encodedCredentials = btoa(`${process.env.REACT_APP_LOGIN_BASIC_USERNAME}:${process.env.REACT_APP_LOGIN_BASIC_PASSWORD}`)
+    const encodedCredentials = btoa(`${process.env.REACT_APP_LOGIN_USERNAME}:${process.env.REACT_APP_LOGIN_PASSWORD}`)
     
     const abortController = new AbortController();
 
     try {
-      const res = await fetch(loginBasicUrl, {
+      const res: Response = await fetch(loginBasicUrl, {
         method: 'POST',
         headers: {
           'Authorization': `Basic ${encodedCredentials}`
@@ -48,10 +52,55 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       return false;
     }
   }
+
+  // define the function that will be used to login using jwt authentication
+  const loginJwt = async (): Promise<boolean> => {
+    const loginJwtUrl: string | undefined = process.env.REACT_APP_LOGIN_JWT_API_URL;
+
+    if (!loginJwtUrl) {
+      throw new Error('REACT_APP_LOGIN_JWT_API_URL is undefined');
+    }
+
+    const encodedCredentials = btoa(`${process.env.REACT_APP_LOGIN_USERNAME}:${process.env.REACT_APP_LOGIN_PASSWORD}`)
+    
+    const abortController = new AbortController();
+
+    try {
+      const formData = new URLSearchParams({
+        grant_type: 'client_credentials'
+      }).toString();
+      
+      const res: Response = await fetch(loginJwtUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Basic ${encodedCredentials}`,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: formData,
+        signal: abortController.signal
+      });
+
+      if (!res.ok) {
+        throw new Error('Could not login url');
+      }
+
+      setIsAuthenticated(true);
+      return true;
+    } catch (err: any) {
+      if (err.name === 'AbortError') {
+        console.log('login aborted');
+      } else {
+        console.log(err.message);
+      }
+      return false;
+    }
+  }
+
+  // define the function that will be used to logout
   const logout = () => setIsAuthenticated(false);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, loginBasic, loginJwt, jwtToken, logout }}>
       {children}
     </AuthContext.Provider>
   );
