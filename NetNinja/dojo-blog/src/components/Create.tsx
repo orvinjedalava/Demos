@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate, NavigateFunction } from "react-router-dom"
+import { useAuth } from '../authentications/AuthContext';
 
 export const Create = () => {
     const [title, setTitle] = useState<string>('');
@@ -7,6 +8,7 @@ export const Create = () => {
     const [author, setAuthor] = useState<string>('mario');
     const [isPending, setIsPending] = useState<boolean>(false);
     const navigate: NavigateFunction = useNavigate();
+    const { jwtToken } = useAuth();
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -14,9 +16,12 @@ export const Create = () => {
 
         setIsPending(true);
 
-        fetch('http://localhost:8000/blogs', {
+        fetch(`${process.env.REACT_APP_API_URL}/Blogs`, {
             method: 'POST',
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+                "Content-Type": "application/json",
+                'Authorization': `Bearer ${jwtToken?.access_token}` 
+            },
             body: JSON.stringify(blog)
         }).then(() => {
             console.log('new blog added');

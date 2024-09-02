@@ -3,7 +3,8 @@ import { useFetch } from '../hooks/useFetch';
 import { Data } from '../types/MyTypes';
 
 export const Home: React.FC = () => {
-    const { data, isPending, error} = useFetch('http://localhost:8000/blogs');
+    //const { data, isPending, error} = useFetch('http://localhost:8000/blogs');
+    const { data, isPending, error} = useFetch(`${process.env.REACT_APP_API_URL}/Blogs`);
     const blogs: Data[] = data as Data[];
     
     return (

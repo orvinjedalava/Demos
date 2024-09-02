@@ -21,14 +21,9 @@ namespace netcore_webapi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BlogsController : ControllerBase
+    public class BlogsController(BlogContext context) : ControllerBase
     {
-        private readonly BlogContext _context;
-
-        public BlogsController(BlogContext context)
-        {
-            _context = context;
-        }
+        private readonly BlogContext _context = context;
 
         // GET: api/Blogs
         [HttpGet, Authorize]
