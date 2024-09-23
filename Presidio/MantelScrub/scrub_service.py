@@ -1,10 +1,10 @@
 from typing import List, Optional
 import regex as re
 import os
-from presidio_analyzer import AnalyzerEngine, RecognizerResult, PatternRecognizer
+from presidio_analyzer import AnalyzerEngine, RecognizerResult, PatternRecognizer, Pattern
 from presidio_analyzer.predefined_recognizers import CreditCardRecognizer, DateRecognizer
 from custom_date_recognizer import CustomDateRecognizer
-from presidio_anonymizer import AnonymizerEngine
+from presidio_anonymizer import AnonymizerEngine, EngineResult
 
 # Custom recognizer class that inherits from CreditCardRecognizer
 class NonValidatedCCRecognizer(CreditCardRecognizer):
@@ -27,7 +27,11 @@ def get_deny_list() -> List[str]:
         'My State','mysted','MyState','State','Mystique','Mice Tate','Mice Date','Mice Eight','My Staid','Might State',
         'Might Stay','Mist Ate','My Stet','Might Aid','Mai State','Mice Strait','Mice Stake','Mice Tape','My Steak',
         'mice tate','mice date','mice eight','my staid','might state','might stay','mist ate','my stet','might aid',
-        'mai state','mice strait','mice stake','mice tape','my steak'
+        'mai state','mice strait','mice stake','mice tape','my steak', 'ANZ','ANZ Bank','ANZ Bank Limited','ANZ Bank Ltd',
+        'SHIVENDRA', 'BENJAMIN JOHN MAURICE KOVAC', 'BENJAMIN', 'JOHN', 'MAURICE', 'KOVAC', 'SHIVENDRA KUMAR', 'SHIVENDRA KUMAR SINGH',
+        'THUY MINH LE', 'THUY', 'MINH', 'LE', 'THUY LE', 'THUY MINH', 'THUY MINH LE', 'THUY LE MINH', 'THUY LE MINH', '9363', '9243',
+        'TRUC MAI THI LE', 'TRUC', 'MAI', 'THI', 'LE', 'TRUC LE', 'TRUC MAI', 'TRUC MAI THI', 'TRUC LE MAI', 'TRUC LE MAI', 
+        'TRUC MAI THI', '157054293'
     ]  # Return a list of deny words
 
 # Function to get a list of allow words
@@ -51,6 +55,24 @@ def get_deny_patternrecognizer(case_sensitive:bool) -> PatternRecognizer:
         supported_entity='CUSTOM_PII', 
         deny_list=get_deny_list(), 
         global_regex_flags=global_regex_flags)
+
+# Function to get a PatternRecognizer for hyphenated account numbers
+def get_custom_hyphenated_accountnumber_patternrecognizer() -> PatternRecognizer:
+    # Define the regex pattern in a Presidio `Pattern` object:
+    numbers_pattern = Pattern(name="numbers_pattern", regex="\d+-\d+", score=0.5)
+    # Define the recognizer with one or more patterns
+    return PatternRecognizer(
+        supported_entity="NUMBER", patterns=[numbers_pattern]
+    )
+
+# Function to get a PatternRecognizer for account numbers with 5 or more numbers
+def get_custom_morethan5_accountnumber_patternrecognizer() -> PatternRecognizer:
+    # Define the regex pattern in a Presidio `Pattern` object:
+    numbers_pattern = Pattern(name="numbers_pattern", regex="\d{5,}", score=0.5)
+    # Define the recognizer with one or more patterns
+    return PatternRecognizer(
+        supported_entity="NUMBER", patterns=[numbers_pattern]
+    )
 
 # Function to run the Presidio analyzer on a text
 def run_presidio_analyzer(text: str) -> List[RecognizerResult]:
@@ -155,7 +177,7 @@ def generate_anonymized_text_file(source_file_name: str, destination_file_name: 
     anonymizer = AnonymizerEngine()
 
     # Anonymize the text using the analyzer results
-    result = anonymizer.anonymize(text=text, analyzer_results=results)
+    result: EngineResult = anonymizer.anonymize(text=text, analyzer_results=results)
 
     # Create the directory for the destination file if it doesn't exist
     os.makedirs(os.path.dirname(destination_file_name), exist_ok=True)
@@ -163,3 +185,48 @@ def generate_anonymized_text_file(source_file_name: str, destination_file_name: 
     with open(destination_file_name, 'w') as file:
         # Write the anonymized text to the destination file
         file.write(result.text)
+
+# Function to generate anonymized text from a given text
+def generate_anonymized_text(text: str, analyzer: AnalyzerEngine, anonymizer: AnonymizerEngine) -> str:
+    # Analyze the text for specified entities
+    results = analyzer.analyze(
+        text=text,
+        entities=[
+            'CREDIT_CARD', 'CRYPTO', 'EMAIL_ADDRESS', 'IBAN_CODE', 'IP_ADDRESS', 
+            'NRP', 'LOCATION', 'PERSON', 'PHONE_NUMBER', 'MEDICAL_LICENSE', 
+            'URL', 'CUSTOM_DATE_TIME', 'CUSTOM_PII'
+        ],
+        language='en', 
+        allow_list=get_allow_list()
+    )
+    
+    # Filter the results based on custom logic
+    filtered_results: List[RecognizerResult] = filter_results(results, text)
+
+    # Anonymize the text using the analyzer results
+    result: EngineResult = anonymizer.anonymize(text=text, analyzer_results=results)
+
+    return result.text
+
+# Function to initialize the Presidio AnalyzerEngine
+def initialize_presidio_analyzer() -> AnalyzerEngine:
+    # Initialize the Presidio AnalyzerEngine
+    analyzer = AnalyzerEngine()
+    
+    # Add a custom recognizer for non-validated credit cards
+    analyzer.registry.add_recognizer(NonValidatedCCRecognizer())
+
+    # Remove the default DateRecognizer and add a custom one
+    analyzer.registry.remove_recognizer(DateRecognizer)
+    analyzer.registry.add_recognizer(CustomDateRecognizer())
+    
+    # Add a custom pattern recognizer with a deny list
+    analyzer.registry.add_recognizer(get_deny_patternrecognizer(case_sensitive=True))
+
+    # add a custom pattern recognizer for account numbers
+    analyzer.registry.add_recognizer(get_custom_hyphenated_accountnumber_patternrecognizer())
+
+    # add a custom pattern recognizer for account numbers
+    analyzer.registry.add_recognizer(get_custom_morethan5_accountnumber_patternrecognizer())
+
+    return analyzer
