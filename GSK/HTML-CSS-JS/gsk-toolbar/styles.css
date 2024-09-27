@@ -101,7 +101,7 @@ body {
 }
 
 .toolbar-items a:hover span {
-    transform: scale(1.05, 1.05);
+    transform: scale(1.01, 1.01);
     
     /* transition: transform 0.6s ease; */
 }
