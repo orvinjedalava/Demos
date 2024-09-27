@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.side-drawer {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: -250px;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.side-drawer ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.side-drawer ul li {
+    padding: 8px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.side-drawer ul li:hover {
+    color: #f1f1f1;
+}
+
+.side-drawer ul .sub-menu {
+    display: none;
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.side-drawer ul li:hover .sub-menu {
+    display: block;
+}
+
+#toggleButton {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 20px;
+}

@@ -1,0 +1,14 @@
+Initialize a node project
+npm init -y
+
+Install Express
+npm install express
+
+Run node server
+node server.js
+
+Host an image
+1: Create a directory named public in the project root. This is where you will place your static files (e.g., images, HTML files).
+2: Copy your image (e.g., BugsBunny.jpg) into the public directory.
+3: Start server ( node server.js )
+4: Open a web browser and navigate to your image ( e.g. http://localhost:3000/BugsBunny.jpg )
