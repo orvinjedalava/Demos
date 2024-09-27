@@ -1,6 +1,7 @@
 body {
     /* Removes the spaces on the side of the page */
     margin: 0; 
+    font-family: 'Roboto', sans-serif;
 }
 
 /* The * selector selects all elements */
@@ -25,11 +26,15 @@ body {
     /* border: 1px solid green; */
     height: 70px;
     margin-left: 10px;
+    position: relative;
 }
 
 .toolbar-logo img{
-    height: 100%;
+    /* border:1px solid black; */
+    height: 100px;
     width: auto;
+    position: absolute;
+    transform: translateY(-16%);
 }
 
 .toolbar-items {
