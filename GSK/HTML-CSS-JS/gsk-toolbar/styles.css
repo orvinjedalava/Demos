@@ -1,3 +1,7 @@
+:root {
+    --toolbar-height: 70px;
+}
+
 body {
     /* Removes the spaces on the side of the page */
     margin: 0; 
@@ -17,14 +21,14 @@ body {
     
     /* gap: 1rem; */
     flex-wrap: nowrap; /* Prevents the toolbar from expanding to more rows */
-    max-height: 70px;
+    max-height: var(--toolbar-height);
     min-width: 500px;
     border-bottom: 1px solid #7d7a7c;
 }
 
 .toolbar-logo {
     /* border: 1px solid green; */
-    height: 70px;
+    height: var(--toolbar-height);
     margin-left: 10px;
     position: relative;
 }
@@ -108,5 +112,103 @@ body {
 
 .toolbar-items a:last-child {
     margin-right: 0;
+}
+
+/******* MAIN SECTION *******/
+.main-content-1 {
+    /* border: 1px solid red; */
+    display: flex;
+    
+    flex-direction: column;
+    /* height: 700px; */
+    height: auto;
+    min-width: 400px;
+    /* align-items: center; */
+    /* align-items: stretch; */
+    /* justify-content: center; */
+    /* height: 100vh; */
+    /* background: #f5f5f5; */
+    /* background: green; */
+    
+}
+
+.main-content > * {
+    flex: 1 1 0px;
+}
+
+.main-content-1-left,
+.main-content-1-right {
+    /* border: 1px solid blue; */
+    /* flex: 1;  */
+    /* Each will take up 50% of the width */
+    /* height: 100%;  */
+    /* Ensure they take the full height */
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* display: inline-block; */
+    /* width: 50%; */
+}
+
+.main-content-1-left {
+    /* background: #e0e0e0;  */
+    padding: 3rem;
+    /* flex-grow: 0; */
+    /* flex-shrink: 0; */
+}
+
+.main-content-1-left h2 {
+    font-size: 3rem;
+}
+
+.main-content-1-right {
+    /* border: 1px solid blue; */
+    /* flex-shrink: 1; */
+    /* background: #c0c0c0;  */
+    /* padding: 2rem; */
+}
+
+.main-content-1-right video {
+    /* border: 1px solid red; */
+    /* width: 100%; */
+    /* width: 900px; */
+    /* height: 100%; */
+    /* object-fit: cover; */
+    /* max-height: 650px; */
+    /* max-width: 650px; */
+    /* height: 90%; */
+    /* object-fit: fill; */
+
+
+    height: auto;
+    width: 90%;
+    
+    object-fit: cover;
+    display: block;
+    margin-top: 5%;
+    margin-right: 5%;
+    margin-left: 5%;
+    margin-bottom: 5%;
+    border-radius: 15px;
+    
+}
+
+@media (min-width: 768px) {
+    .main-content-1 {
+        flex-direction: row;
+        /* justify-content: space-evenly; */
+        /* gap: 1rem; */
+    }
+
+    .main-content-1-left,
+.main-content-1-right {
+    
+    width: 50%;
+}
+
+    .main-content-1-right video {
+        margin-left: 0;
+        width: 95%;
+    }
 }
 
