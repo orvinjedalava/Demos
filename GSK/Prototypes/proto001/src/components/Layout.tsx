@@ -1,17 +1,20 @@
 import styles from './layout.module.css';
 import AppBar from './AppBar';
+import SearchSection from './SearchSection';
 
 export default function Layout() {
     return (
-        <div>
+        <div className={styles.root}>
             <div className={styles.header}>
-                <div className="appbarcontainer">
+                <div className="appbar-container">
                     <AppBar />
                 </div>
-                <div className="filterbarcontainer"></div>
+                <div className="filterbar-container"></div>
             </div>
             <div className={styles.main}>
-                
+                <div className={styles['search-section-container']}>
+                    <SearchSection />
+                </div>
             </div>
         </div>
     );

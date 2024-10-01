@@ -11,7 +11,7 @@
     flex-wrap: nowrap; /* Prevents the appbar from expanding to more rows */
     max-height: 70px;
     min-width: 500px;
-    border-bottom: 1px solid #7d7a7c;
+    /* border-bottom: 1px solid #7d7a7c; */
 }
 
 .appbar-logo {

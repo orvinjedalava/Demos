@@ -2,10 +2,19 @@
     --toolbar-height: 70px;
 }
 
+.root {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 .header {
     /* border: 1px solid red; */
 }
 
 .main {
     /* border: 1px solid blue; */
+}
+
+.search-section-container {
+    /* border: 1px solid green; */
 }
