@@ -1,6 +1,6 @@
 import styles from './layout.module.css';
 import AppBar from './AppBar';
-import SearchSection from './SearchSection';
+import PromptSection from './PromptSection';
 
 export default function Layout() {
     return (
@@ -13,7 +13,7 @@ export default function Layout() {
             </div>
             <div className={styles.main}>
                 <div className={styles['search-section-container']}>
-                    <SearchSection />
+                    <PromptSection />
                 </div>
             </div>
         </div>
