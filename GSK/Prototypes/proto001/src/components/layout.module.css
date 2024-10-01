@@ -19,7 +19,7 @@
     /* border: 1px solid green; */
 }
 
-.prompt-filter-overlay {
+#prompt-filter-overlay {
     position: fixed;
     opacity: 0;
     transition: 500ms ease-in-out;
@@ -31,7 +31,7 @@
     pointer-events: none;
 }
   
-.prompt-filter-overlay.active {
+#prompt-filter-overlay.active {
     opacity: 1;
     pointer-events: all;
 }

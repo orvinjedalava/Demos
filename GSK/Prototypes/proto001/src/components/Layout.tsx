@@ -32,7 +32,7 @@ export default function Layout() {
                     <PromptSection handleButtonFilterClick={handleButtonFilterClick}/>
                 </div>
             </div>
-            <div className={styles['prompt-filter-overlay']} ref={promptFilterOverlayRef} onClick={handlePromptFilterOverlayClick}></div>
+            <div id={styles['prompt-filter-overlay']} ref={promptFilterOverlayRef} onClick={handlePromptFilterOverlayClick}></div>
         </div>
     );
 }
