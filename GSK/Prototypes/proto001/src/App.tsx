@@ -3,11 +3,14 @@ import logo from './logo.svg';
 import './App.css';
 
 import Layout from './components/Layout';
+import { PromptProvider } from './contexts/PromptContext';
 
 function App() {
   return (
     <div>
-      <Layout />
+      <PromptProvider>
+        <Layout />
+      </PromptProvider>
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
