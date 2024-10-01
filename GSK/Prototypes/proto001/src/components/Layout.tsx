@@ -6,17 +6,27 @@ import { useRef } from 'react';
 export default function Layout() {
 
     const promptFilterOverlayRef = useRef<HTMLDivElement>(null);
+    const promptModalDialogRef = useRef<HTMLDivElement>(null);
 
-    const handleButtonFilterClick = () => {
+    const toggleFilterDialog = () => {
         if (promptFilterOverlayRef.current) {
             promptFilterOverlayRef.current.classList.toggle(styles.active);
+        }
+        if (promptModalDialogRef.current) {
+            promptModalDialogRef.current.classList.toggle(styles.active);
         }
     }
 
+    const handleButtonFilterClick = () => {
+        toggleFilterDialog();
+    }
+
     const handlePromptFilterOverlayClick = () => {
-        if (promptFilterOverlayRef.current) {
-            promptFilterOverlayRef.current.classList.toggle(styles.active);
-        }
+        toggleFilterDialog();
+    }
+    
+    const handlePromptModalDialogClose = () => {
+        toggleFilterDialog();
     }
 
     return (
@@ -32,6 +42,16 @@ export default function Layout() {
                     <PromptSection handleButtonFilterClick={handleButtonFilterClick}/>
                 </div>
             </div>
+            <div className={styles['prompt-filter-modal']} ref={promptModalDialogRef}>
+                <div className={styles['prompt-filter-modal-header']}>
+                    <div className={styles['title']}>Filters</div>
+                    <button className={styles['close-button']} onClick={handlePromptModalDialogClose}>&times;</button>
+                </div>
+                <div className={styles['prompt-filter-modal-body']}>
+                    This is a modal dialog
+                </div>
+            </div>
+
             <div id={styles['prompt-filter-overlay']} ref={promptFilterOverlayRef} onClick={handlePromptFilterOverlayClick}></div>
         </div>
     );
