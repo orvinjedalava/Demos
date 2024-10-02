@@ -77,6 +77,8 @@
     cursor: pointer;
     font-size: 1.2rem;
     color: #424242;
+
+    transition: all 0.3s ease-in-out;
     
 }
 
@@ -99,6 +101,8 @@
     font-size: 1.2rem;
     background-color: #eb8f05;
     color: white;
+
+    transition: all 0.3s ease-in-out;
 }
 
 .prompt-container-bar .btn-generate:hover {
