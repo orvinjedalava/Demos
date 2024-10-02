@@ -2,6 +2,7 @@ import styles from './layout.module.css';
 import AppBar from './AppBar';
 import PromptSection from './PromptSection';
 import { useRef } from 'react';
+import PromptFilterDialog from './PromptFilterDialog';
 
 export default function Layout() {
 
@@ -43,13 +44,14 @@ export default function Layout() {
                 </div>
             </div>
             <div className={styles['prompt-filter-modal']} ref={promptModalDialogRef}>
-                <div className={styles['prompt-filter-modal-header']}>
+                {/* <div className={styles['prompt-filter-modal-header']}>
                     <div className={styles['title']}>Filters</div>
                     <button className={styles['close-button']} onClick={handlePromptModalDialogClose}>&times;</button>
                 </div>
                 <div className={styles['prompt-filter-modal-body']}>
                     This is a modal dialog
-                </div>
+                </div> */}
+                <PromptFilterDialog handlePromptModalDialogClose={handlePromptModalDialogClose}/>
             </div>
 
             <div id={styles['prompt-filter-overlay']} ref={promptFilterOverlayRef} onClick={handlePromptFilterOverlayClick}></div>
