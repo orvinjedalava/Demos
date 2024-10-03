@@ -68,12 +68,24 @@
 
 /********************************/
 
+.dialog-container {
+    /* width: 800px; */
+    width: 60vw;
+    height: 90vh;
+}
+
+hr {
+    width: 90%;
+    margin: 0 auto 10px auto;
+}
+
 .header-container {
     /* border: 1px solid black; */
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    
 }
 .header-container span {
     /* border: 1px solid red; */
@@ -85,6 +97,19 @@
     font-size: 1.5rem;
     font-weight: bold;
     color: #4d4b4c;
+}
+
+.section-title-container {
+    /* border: 1px solid red; */
+    display: flex;
+    align-items: center;
+}
+
+.section-title-container span {
+    font-size: 1.2rem;
+    color: #4d4b4c;
+    margin-left: 40px;
+    margin-bottom: 20px;
 }
 
 .header-container .close-button {
@@ -109,3 +134,4 @@
 .header-container .close-button:hover {
     color: #d68102;
 }
+
