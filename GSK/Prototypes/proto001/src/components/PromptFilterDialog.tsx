@@ -16,33 +16,33 @@ export default function PromptFilterDialog({handlePromptModalDialogClose}: Promp
                 <div className={styles['section-title-container']}>
                     <span>Conditions</span>
                 </div>
-                <div className="form-container">
-                    <div className="column">
-                        <label>
+                <div className={styles['section-conditions-container']}>
+                    <div className={styles["column"]}>
+                        <label className={styles['styled-checkbox']}>
                             <input type="checkbox" name="option1" value="1" />
-                            <span className="checkmark"></span> Heart disease
+                            <span className={styles['checkmark']}></span> Heart disease
                         </label>
-                        <label>
+                        <label className={styles['styled-checkbox']}>
                             <input type="checkbox" name="option2" value="2" />
-                            <span className="checkmark"></span> High blood pressure
+                            <span className={styles['checkmark']}></span> High blood pressure
                         </label>
-                        <label>
+                        <label className={styles['styled-checkbox']}>
                             <input type="checkbox" name="option3" value="3" />
-                            <span className="checkmark"></span> Respiratory disease
+                            <span className={styles['checkmark']}></span> Respiratory disease
                         </label>
                     </div>
-                    <div className="column">
-                        <label>
+                    <div className={styles["column"]}>
+                        <label className={styles['styled-checkbox']}>
                             <input type="checkbox" name="option4" value="4" />
-                            <span className="checkmark"></span> Diabetes
+                            <span className={styles['checkmark']}></span> Diabetes
                         </label>
-                        <label>
+                        <label className={styles['styled-checkbox']}>
                             <input type="checkbox" name="option5" value="5" />
-                            <span className="checkmark"></span> Sensory impairment
+                            <span className={styles['checkmark']}></span> Sensory impairment
                         </label>
-                        <label>
+                        <label className={styles['styled-checkbox']}>
                             <input type="checkbox" name="option6" value="6" />
-                            <span className="checkmark"></span> Respiratory disease
+                            <span className={styles['checkmark']}></span> Respiratory disease
                         </label>
                     </div>
                 </div>
