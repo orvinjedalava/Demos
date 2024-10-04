@@ -2,28 +2,34 @@ import styles from './contentlayout.module.css';
 import { useEffect, useRef } from 'react';
 
 type ContentLayoutProps = {
-    toggleSidebarState: boolean;
+    isSidebarExpanded: boolean;
 }
 
-export default function ContentLayout({toggleSidebarState}: ContentLayoutProps) {
+export default function ContentLayout({isSidebarExpanded}: ContentLayoutProps) {
 
     useEffect(() => {
         // console.log('MainLayout isExpanded:', toggleSidebarState);
         if (sidebarContainerRef.current) {
-            sidebarContainerRef.current.classList.toggle(styles.expanded);
+            if (isSidebarExpanded) {
+                sidebarContainerRef.current.classList.add(styles.expanded);
+            } else {
+                sidebarContainerRef.current.classList.remove(styles.expanded);
+            }
+
+            // sidebarContainerRef.current.classList.toggle(styles.expanded);
         }
 
-    }, [toggleSidebarState]);
+    }, [isSidebarExpanded]);
 
     const sidebarContainerRef = useRef<HTMLDivElement>(null);
 
 
     return(
         <div className={styles['contentlayout-container']}>
-            <div className={styles['sidebar-container']} ref={sidebarContainerRef}>
+            <div className={styles['contentlayout-sidebar-container']} ref={sidebarContainerRef}>
                 Sidebar
             </div>
-            <div className={styles['image-gallery-container']}>
+            <div className={styles['contentlayout-image-gallery-container']}>
                 Image Gallery
             </div>
         </div>

@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 export default function Layout() {
 
-    const [toggleSidebarState, setToggleSidebarState] = useState(false);
+    const [isSidebarExpanded, setToggleSidebarState] = useState(true);
 
     const toggleSidebar = () => {
         console.log('Toggle Sidebar State');
@@ -21,7 +21,7 @@ export default function Layout() {
                 </div>
             </div>
             <div className={styles.content}>
-                <ContentLayout toggleSidebarState={toggleSidebarState}/>
+                <ContentLayout isSidebarExpanded={isSidebarExpanded}/>
             </div>
         </div>
     );
