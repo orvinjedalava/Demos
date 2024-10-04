@@ -1,5 +1,6 @@
-import gskLogo from '../gsk-logo.png';
+import gskLogo from '../temporary/gsk-logo.png';
 import styles from './appbar.module.css';
+import avatarImg from '../temporary/img_avatar.png';
 
 export default function AppBar() {
     return (
@@ -24,8 +25,9 @@ export default function AppBar() {
                 <a href="#"><span>Responsibility</span><i className="fa-solid fa-chevron-down"></i></a>
                 <a href="#"><span>Media</span><i className="fa-solid fa-chevron-down"></i></a>
                 <a href="#"><span>Careers</span><i className="fa-solid fa-chevron-down"></i></a> */}
-                <a href="#"><span>About</span><i className="fa-solid fa-chevron-down"></i></a>
-                <a href="#"><span>Help</span><i className="fa-solid fa-chevron-down"></i></a>
+                {/* <a href="#"><span>About</span><i className="fa-solid fa-chevron-down"></i></a>
+                <a href="#"><span>Help</span><i className="fa-solid fa-chevron-down"></i></a> */}
+                <img src={avatarImg} alt="Avatar" className={styles.avatar}/>
             </div>
          </div>
     );
