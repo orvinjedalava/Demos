@@ -2,11 +2,15 @@ import gskLogo from '../temporary/gsk-logo.png';
 import styles from './appbar.module.css';
 import avatarImg from '../temporary/img_avatar.png';
 
-export default function AppBar() {
+type AppBarProps = {
+    toggleSidebar: () => void;
+}
+
+export default function AppBar({ toggleSidebar }: AppBarProps) {
     return (
-        <div className={styles.appbar}>
+        <div className={styles['appbar-container']}>
             
-            <div className={styles['sidebar-toggle']}>
+            <div className={styles['sidebar-toggle']} onClick={toggleSidebar}>
                 {/* <i className="fa-solid fa-bars"></i> */}
                 <svg xmlns="http://www.w3.org/2000/svg"
                     className="menu-icon"

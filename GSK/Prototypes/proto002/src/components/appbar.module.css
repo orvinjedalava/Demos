@@ -2,7 +2,7 @@
     --appbar-height: 70px;
 } */
 
-.appbar {
+.appbar-container {
     /* border: 1px solid red; */
     display: flex;
     flex-direction: row;

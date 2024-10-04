@@ -2,7 +2,7 @@
     --toolbar-height: 70px;
 }
 
-.root {
+.layout-container {
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -13,7 +13,7 @@
     top: 0;
 }
 
-.main {
+.content {
     /* border: 1px solid blue; */
 }
 

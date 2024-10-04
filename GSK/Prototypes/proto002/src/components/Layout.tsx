@@ -1,16 +1,27 @@
 import styles from './layout.module.css';
 import AppBar from './AppBar';
+import ContentLayout from './ContentLayout';
+import { useState } from 'react';
 
 export default function Layout() {
+
+    const [toggleSidebarState, setToggleSidebarState] = useState(false);
+
+    const toggleSidebar = () => {
+        console.log('Toggle Sidebar State');
+        setToggleSidebarState(prevValue => !prevValue);
+    }
+
+
     return (
-        <div className={styles.root}>
+        <div className={styles['layout-container']}>
             <div className={styles.header}>
                 <div className="appbar-container">
-                    <AppBar />
+                    <AppBar toggleSidebar={toggleSidebar}/>
                 </div>
             </div>
-            <div className={styles.main}>
-                
+            <div className={styles.content}>
+                <ContentLayout toggleSidebarState={toggleSidebarState}/>
             </div>
         </div>
     );
