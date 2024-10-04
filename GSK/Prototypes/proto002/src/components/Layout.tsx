@@ -15,10 +15,8 @@ export default function Layout() {
 
     return (
         <div className={styles['layout-container']}>
-            <div className={styles.header}>
-                <div className="appbar-container">
-                    <AppBar toggleSidebar={toggleSidebar}/>
-                </div>
+            <div className={styles['.layout-header-container']}>
+                <AppBar toggleSidebar={toggleSidebar} isSidebarExpanded={isSidebarExpanded}/>
             </div>
             <div className={styles.content}>
                 <ContentLayout isSidebarExpanded={isSidebarExpanded}/>

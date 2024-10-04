@@ -7,7 +7,7 @@
     margin: 0 auto;
 }
 
-.header {
+.layout-header-container {
     /* border: 1px solid red; */
     position: sticky;
     top: 0;

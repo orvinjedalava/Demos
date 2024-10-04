@@ -8,7 +8,6 @@ type ContentLayoutProps = {
 export default function ContentLayout({isSidebarExpanded}: ContentLayoutProps) {
 
     useEffect(() => {
-        // console.log('MainLayout isExpanded:', toggleSidebarState);
         if (sidebarContainerRef.current) {
             if (isSidebarExpanded) {
                 sidebarContainerRef.current.classList.add(styles.expanded);
@@ -16,13 +15,11 @@ export default function ContentLayout({isSidebarExpanded}: ContentLayoutProps) {
                 sidebarContainerRef.current.classList.remove(styles.expanded);
             }
 
-            // sidebarContainerRef.current.classList.toggle(styles.expanded);
         }
 
     }, [isSidebarExpanded]);
 
     const sidebarContainerRef = useRef<HTMLDivElement>(null);
-
 
     return(
         <div className={styles['contentlayout-container']}>
