@@ -1,0 +1,134 @@
+/* :root {
+    --appbar-height: 70px;
+} */
+
+.appbar {
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: row;
+    
+    /* gap: 1rem; */
+    flex-wrap: nowrap; /* Prevents the appbar from expanding to more rows */
+    max-height: 70px;
+    min-width: 500px;
+    border-bottom: 1px solid #7d7a7c;
+}
+
+.appbar-logo {
+    /* border: 1px solid green; */
+    height: 70px;
+    margin-left: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.appbar-logo img{
+    /* border:1px solid black; */
+    height: 100px;
+    width: auto;
+    position: absolute;
+    transform: translateY(-16%);
+}
+
+.sidebar-toggle {
+    /* border: 1px solid green; */
+    /* width: 100px;
+    height: 100px; */
+    /* padding: 10px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px; 
+    height: 50px; 
+    border-radius: 50%; 
+    margin-top: 10px;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.sidebar-toggle:hover  {
+    background: #ede8eb;
+}
+
+.sidebar-toggle svg {
+    fill: #4d4b4c;
+    transition: all 0.2s ease-in-out;
+}
+
+.sidebar-toggle:hover svg {
+    fill: #eb8f05;
+}
+
+.appbar-items {
+    /* border: 1px solid blue; */
+    margin-left: auto;
+    display: flex;
+    align-items: center; /* Vertically center the items */
+    
+}
+
+.appbar-items a {
+    /* border: 1px solid black; */
+    display: inline-block;
+    margin-right: 0.8rem;
+    
+    padding: 23px 10px;
+    /* text-align: center; */
+    font-size: 1.2rem;
+    text-decoration: none;
+    height: 100%;
+    color: #4d4b4c;
+
+    position: relative;
+}
+
+.appbar-items a i {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -20%);
+    font-size: 0.6em; /* Adjust the size of the icon */
+    /* display: none; */
+    color: white;
+    transition: all 0.6s ease-in-out; /* Add transition for smooth hover out */
+}
+
+@keyframes down-arrow-hover {
+    from {
+        top: 70%;
+    }
+    to {
+        top: 80%;
+    }
+}
+
+.appbar-items a:hover {
+    background: #ede8eb;
+    color: black;
+    z-index: 10;
+}
+
+.appbar-items a:hover i {
+    /* animation-name: down-arrow-hover;
+    animation-duration: 0.6s;
+    animation-fill-mode: forwards; */
+    /* display: inline; */
+    /* color: #eb8b0e; */
+    color: #eb8f05;
+    top: 80%;
+}
+
+.appbar-items a span {
+    transition: transform 0.6s ease;
+    display: inline-block;
+}
+
+.appbar-items a:hover span {
+    transform: scale(1.01, 1.01);
+    
+    /* transition: transform 0.6s ease; */
+}
+
+.appbar-items a:last-child {
+    margin-right: 0;
+}
