@@ -69,6 +69,17 @@ export default function ImageCanvas({ imageUrls }: ImageCanvasProps) {
     return () => window.removeEventListener('resize', updateCanvasSize)
   }, [])
 
+  const saveCanvasAsImage = () => {
+    if (!canvasRef.current) return
+
+    const canvas = canvasRef.current
+    const image = canvas.toDataURL('image/png')
+    const link = document.createElement('a')
+    link.href = image
+    link.download = 'canvas-image.png'
+    link.click()
+  }
+
   return (
     <div ref={containerRef} className="w-full">
       <canvas
@@ -77,6 +88,7 @@ export default function ImageCanvas({ imageUrls }: ImageCanvasProps) {
         height={canvasSize.height}
         className="w-full h-auto"
       />
+      <button onClick={saveCanvasAsImage}>Save as Image</button>
     </div>
   )
 }
