@@ -11,8 +11,8 @@ export default function ImageCanvasDemo() {
     // "./BugsBunny.jpg?height=300&width=300",
     // "/Banner.png?height=300&width=300"
     'http://localhost:5000/BugsBunny.jpg',
-    'http://localhost:5000/Banner.png',
-    'http://localhost:5000/flower.jpg'
+    // 'http://localhost:5000/Banner.png',
+    // 'http://localhost:5000/flower.jpg'
   ]
 
   return (
