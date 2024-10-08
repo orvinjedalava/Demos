@@ -2,7 +2,9 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import Demo from './html-to-canvas/Demo'
+// import Demo from './html-to-canvas/Demo'
+// import Demo from './image-stack/Demo';
+import ImageCanvasDemo from './image-stack/ImageCanvasDemo';
 
 function App() {
   return (
@@ -22,7 +24,8 @@ function App() {
         </a>
       </header> */}
 
-        <Demo/>
+        {/* <Demo/> */}
+        <ImageCanvasDemo/>
     </div>
   );
 }
