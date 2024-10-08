@@ -5,6 +5,7 @@ import './App.css';
 // import Demo from './html-to-canvas/Demo'
 // import Demo from './image-stack/Demo';
 import ImageCanvasDemo from './image-stack/ImageCanvasDemo';
+import ImageTextEditor from './image-text/ImageTextEditor';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
 
         {/* <Demo/> */}
         <ImageCanvasDemo/>
+        {/* <ImageTextEditor/> */}
     </div>
   );
 }
