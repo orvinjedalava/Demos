@@ -13,7 +13,7 @@ const TextCanvas: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [texts, setTexts] = useState<TextObject[]>([]);
     const [currentText, setCurrentText] = useState("");
-    const [textColor, setTextColor] = useState("#000000");
+    const [textColor, setTextColor] = useState("#ffffff");
     const [fontSize, setFontSize] = useState(20);
     const [draggingIndex, setDraggingIndex] = useState<number | null>(null);
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -22,7 +22,24 @@ const TextCanvas: React.FC = () => {
 
     useEffect(() => {
         drawTexts();
-    }, [texts, selectedIndex, image]);
+    }, [texts, image]);
+
+    useEffect(() => {
+        drawTexts();
+
+        if (selectedIndex !== null) {
+            const text = texts[selectedIndex];
+            setCurrentText(text.text);
+            setTextColor(text.color);
+            setFontSize(text.fontSize);
+        }
+        else
+        {
+            setCurrentText('');
+            setTextColor("#ffffff");
+            setFontSize(20);
+        }
+    }, [selectedIndex])
 
     const drawTexts = () => {
         // console.log('drawTexts');
