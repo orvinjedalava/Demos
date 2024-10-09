@@ -17,14 +17,15 @@ const TextCanvas: React.FC = () => {
     const [fontSize, setFontSize] = useState(20);
     const [draggingIndex, setDraggingIndex] = useState<number | null>(null);
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+    const [image, setImage] = useState<HTMLImageElement | null>(null);
     const [offset, setOffset] = useState({ x: 0, y: 0 });
 
     useEffect(() => {
         drawTexts();
-    }, [texts, selectedIndex]);
+    }, [texts, selectedIndex, image]);
 
     const drawTexts = () => {
-        console.log('drawTexts');
+        // console.log('drawTexts');
         const canvas = canvasRef.current;
         const ctx = canvas?.getContext('2d');
         if (!canvas || !ctx) return;
@@ -32,6 +33,10 @@ const TextCanvas: React.FC = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         // console.log('drawTexts entering forEach');
+
+        if (image) {
+            ctx.drawImage(image, 10, 10, 300, 300);
+        }
 
         texts.forEach((text, index) => {
             ctx.font = `${text.fontSize}px Arial`;
@@ -66,7 +71,7 @@ const TextCanvas: React.FC = () => {
     };
 
     const handleMouseDown = (event: React.MouseEvent<HTMLCanvasElement>) => {
-        console.log('handleMouseDown');
+        // console.log('handleMouseDown');
         const canvas = canvasRef.current;
         if (!canvas) return;
 
@@ -121,6 +126,22 @@ const TextCanvas: React.FC = () => {
         setDraggingIndex(null);
     };
 
+    const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+        console.log('handleDrop');
+        event.preventDefault();
+        const file = event.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) {
+            const img = new Image();
+            img.onload = () => setImage(img);
+            img.src = URL.createObjectURL(file);
+        }
+    };
+
+    const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+        console.log('handleDragOver');
+        event.preventDefault();
+    };
+
     return (
         <div>
             <canvas
@@ -152,6 +173,18 @@ const TextCanvas: React.FC = () => {
                     placeholder="Font size"
                 />
                 <button onClick={addText}>Add Text</button>
+            </div>
+            <div
+                onDrop={handleDrop}
+                onDragOver={handleDragOver}
+                style={{
+                    border: '2px dashed #ccc',
+                    padding: '20px',
+                    marginBottom: '20px',
+                    textAlign: 'center',
+                }}
+            >
+                Drag and drop an image here
             </div>
         </div>
     );
