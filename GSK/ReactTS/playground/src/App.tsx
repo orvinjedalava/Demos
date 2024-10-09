@@ -6,6 +6,7 @@ import './App.css';
 // import Demo from './image-stack/Demo';
 import ImageCanvasDemo from './image-stack/ImageCanvasDemo';
 import ImageTextEditor from './image-text/ImageTextEditor';
+import TextCanvas from './text-manipulation/TextCanvas';
 
 function App() {
   return (
@@ -24,9 +25,11 @@ function App() {
           Learn React
         </a>
       </header> */}
+        {/* <ImageCanvasDemo/> */}
+        <TextCanvas/>
+
 
         {/* <Demo/> */}
-        <ImageCanvasDemo/>
         {/* <ImageTextEditor/> */}
     </div>
   );
