@@ -1,17 +1,21 @@
 import React, { useRef, useState, useEffect } from 'react';
 
-interface TextObject {
+interface CanvasObject {
     id: number;
     text: string;
     x: number;
     y: number;
     color: string;
     fontSize: number;
+
+    image: HTMLImageElement | null;
+    height: number;
+    width: number;
 }
 
 const TextCanvas: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const [texts, setTexts] = useState<TextObject[]>([]);
+    const [canvasObjs, setCanvasObjs] = useState<CanvasObject[]>([]);
     const [currentText, setCurrentText] = useState("");
     const [textColor, setTextColor] = useState("#ffffff");
     const [fontSize, setFontSize] = useState(20);
@@ -22,13 +26,32 @@ const TextCanvas: React.FC = () => {
 
     useEffect(() => {
         drawTexts();
-    }, [texts, image]);
+    }, [canvasObjs]);
+
+    useEffect(() => {
+        // drawTexts();
+        console.log('useEffect image');
+        if (image) {
+            const newImage: CanvasObject = {
+                id: canvasObjs.length,
+                text: '',
+                x: 10,
+                y: 10,
+                color: '',
+                fontSize: 0,
+                image: image,
+                height: image.height,
+                width: image.width,
+            };
+            setCanvasObjs([...canvasObjs, newImage]);
+        }
+    }, [image])
 
     useEffect(() => {
         drawTexts();
 
         if (selectedIndex !== null) {
-            const text = texts[selectedIndex];
+            const text = canvasObjs[selectedIndex];
             setCurrentText(text.text);
             setTextColor(text.color);
             setFontSize(text.fontSize);
@@ -59,7 +82,7 @@ const TextCanvas: React.FC = () => {
             ctx.drawImage(image, 10, 10, 300, 300);
         }
 
-        texts.forEach((text, index) => {
+        canvasObjs.forEach((text, index) => {
             ctx.font = `${text.fontSize}px Arial`;
             ctx.fillStyle = text.color;
             ctx.fillText(text.text, text.x, text.y);
@@ -67,8 +90,8 @@ const TextCanvas: React.FC = () => {
             // console.log(`drawTexts selectedIndex: ${draggingIndex}`);
 
             if (index === selectedIndex) {
-                const textWidth = ctx.measureText(text.text).width + 5;
-                const textHeight = text.fontSize + 5;
+                const textWidth = ctx.measureText(text.text).width;
+                const textHeight = text.fontSize;
                 ctx.strokeStyle = 'red';
                 ctx.lineWidth = 2;
                 ctx.strokeRect(text.x, text.y - textHeight, textWidth, textHeight);
@@ -79,15 +102,18 @@ const TextCanvas: React.FC = () => {
     };
 
     const addText = () => {
-        const newText: TextObject = {
-            id: texts.length,
+        const newText: CanvasObject = {
+            id: canvasObjs.length,
             text: currentText,
             x: 50,
             y: 50,
             color: textColor,
             fontSize: fontSize,
+            image: null,
+            height: 0,
+            width: 0,
         };
-        setTexts([...texts, newText]);
+        setCanvasObjs([...canvasObjs, newText]);
         setCurrentText("");
     };
 
@@ -104,10 +130,10 @@ const TextCanvas: React.FC = () => {
 
         setSelectedIndex(null);
 
-        for (let i = 0; i < texts.length; i++) {
+        for (let i = 0; i < canvasObjs.length; i++) {
             // console.log(`x: ${x}, y: ${y}, event.clientX: ${event.clientX}, event.clientY: ${event.clientY}, rect.left: ${rect.left}, rect.top: ${rect.top}`);
             // console.log(`texts[${i}].x: ${texts[i].x}, texts[${i}].y: ${texts[i].y}`);
-            const text = texts[i];
+            const text = canvasObjs[i];
             const textWidth = text.text.length * text.fontSize * 0.6; // Approximate width
             const textHeight = text.fontSize; // Approximate height
 
@@ -134,13 +160,13 @@ const TextCanvas: React.FC = () => {
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
 
-        const newTexts = [...texts];
+        const newTexts = [...canvasObjs];
         newTexts[draggingIndex] = {
             ...newTexts[draggingIndex],
             x: x - offset.x,
             y: y - offset.y,
         };
-        setTexts(newTexts);
+        setCanvasObjs(newTexts);
     };
 
     const handleMouseUp = () => {
@@ -148,7 +174,7 @@ const TextCanvas: React.FC = () => {
     };
 
     const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
-        console.log('handleDrop');
+        // console.log('handleDrop');
         event.preventDefault();
         const file = event.dataTransfer.files[0];
         if (file && file.type.startsWith('image/')) {
@@ -159,7 +185,7 @@ const TextCanvas: React.FC = () => {
     };
 
     const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-        console.log('handleDragOver');
+        // console.log('handleDragOver');
         event.preventDefault();
     };
 
