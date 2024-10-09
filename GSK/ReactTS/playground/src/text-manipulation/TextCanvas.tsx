@@ -32,6 +32,10 @@ const TextCanvas: React.FC = () => {
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+        // Fill the canvas with black color
+        ctx.fillStyle = 'black';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
         // console.log('drawTexts entering forEach');
 
         if (image) {
