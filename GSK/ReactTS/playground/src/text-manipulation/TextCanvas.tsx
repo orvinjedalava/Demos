@@ -219,16 +219,43 @@ const TextCanvas: React.FC = () => {
         // console.log('handleDragOver');
         event.preventDefault();
     };
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLCanvasElement>) => {
+        console.log('handleKeyDown via Canvas');
+        if (event.key === 'Delete' && selectedIndex !== null) {
+            const newCanvasObjs = canvasObjs.filter((_, index) => index !== selectedIndex);
+            setCanvasObjs(newCanvasObjs);
+            setSelectedIndex(null);
+        }
+    };
+
+    // useEffect(() => {
+    //     const handleKeyDown = (event: KeyboardEvent) => {
+    //         console.log('handleKeyDown via UseEffect');
+    //         if (event.key === 'Delete' && selectedIndex !== null) {
+    //             const newCanvasObjs = canvasObjs.filter((_, index) => index !== selectedIndex);
+    //             setCanvasObjs(newCanvasObjs);
+    //             setSelectedIndex(null);
+    //         }
+    //     };
+
+    //     window.addEventListener('keydown', handleKeyDown);
+
+    //     return () => {
+    //         window.removeEventListener('keydown', handleKeyDown);
+    //     };
+    // }, []);
 
     return (
         <div>
             <canvas
+                tabIndex={0}
                 ref={canvasRef}
                 width={800}
                 height={600}
                 onMouseDown={handleMouseDown}
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
+                onKeyDown={handleKeyDown}
                 
                 style={{ border: '1px solid black' }}
             ></canvas>
