@@ -9,7 +9,7 @@ interface ImageCanvasProps {
 export default function ImageCanvas({ imageUrls }: ImageCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 })
+  const [canvasSize, setCanvasSize] = useState({ width: 800, height: 600 })
 
   const [title, setTitle] = useState("IT'S DUCK SEASON!");
   const titleRef = useRef<HTMLInputElement>(null);
@@ -61,21 +61,26 @@ export default function ImageCanvas({ imageUrls }: ImageCanvasProps) {
   }, [imageUrls, canvasSize])
 
   useEffect(() => {
-    const updateCanvasSize = () => {
-      if (containerRef.current) {
-        const { width } = containerRef.current.getBoundingClientRect()
-        setCanvasSize({ width, height: width * 0.5625 }) // 16:9 aspect ratio
-      }
-    }
+    // const updateCanvasSize = () => {
+    //   if (containerRef.current) {
+    //     const { width } = containerRef.current.getBoundingClientRect()
+    //     setCanvasSize({ width, height: width * 0.5625 }) // 16:9 aspect ratio
+    //   }
+    // }
 
-    updateCanvasSize()
-    window.addEventListener('resize', updateCanvasSize)
+    // updateCanvasSize()
+    // window.addEventListener('resize', updateCanvasSize)
+
+    // if (containerRef.current) {
+    //   const { width } = containerRef.current.getBoundingClientRect()
+    //   setCanvasSize({ width, height: width * 0.5625 }) // 16:9 aspect ratio
+    // }
 
     if (titleRef.current) {
       titleRef.current.value = title;
     }
 
-    return () => window.removeEventListener('resize', updateCanvasSize)
+    // return () => window.removeEventListener('resize', updateCanvasSize)
   }, [])
 
   const saveCanvasAsImage = () => {
@@ -168,7 +173,7 @@ export default function ImageCanvas({ imageUrls }: ImageCanvasProps) {
     // ctx.fillStyle = text.color;
     ctx.fillStyle = 'white';
     // ctx.fillText(text.text, text.x, text.y);
-    ctx.fillText(title, 350, 130);
+    ctx.fillText(title, 180, 130);
 
     // ctx.strokeText(title, 40, 50);
   };
@@ -198,16 +203,16 @@ export default function ImageCanvas({ imageUrls }: ImageCanvasProps) {
 
 const drawButton = (ctx: CanvasRenderingContext2D) => {
     ctx.fillStyle = 'orange';
-    ctx.fillRect(500, 250, 150, 50);
+    ctx.fillRect(310, 250, 150, 50);
     ctx.font = '20px Arial';
     ctx.fillStyle = 'white';
     // ctx.textAlign = 'center';
-    ctx.fillText('Take Action', 521, 282);
+    ctx.fillText('Take Action', 331, 282);
 
     // Add border
     ctx.strokeStyle = 'white';
     ctx.lineWidth = 2;
-    ctx.strokeRect(500, 250, 150, 50);
+    ctx.strokeRect(310, 250, 150, 50);
 };
 
 
@@ -219,7 +224,8 @@ const drawButton = (ctx: CanvasRenderingContext2D) => {
         height={canvasSize.height}
         className="w-full h-auto"
       />
-      <button onClick={saveCanvasAsImage}>Save as Image</button>
+      <div><button onClick={saveCanvasAsImage}>Save as Image</button></div>
+      
         <div>
             <input
                 type="text"
