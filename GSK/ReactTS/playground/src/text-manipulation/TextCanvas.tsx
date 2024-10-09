@@ -30,18 +30,18 @@ const TextCanvas: React.FC = () => {
 
     useEffect(() => {
         // drawTexts();
-        console.log('useEffect image');
+        // console.log('useEffect image');
         if (image) {
             const newImage: CanvasObject = {
                 id: canvasObjs.length,
                 text: '',
                 x: 10,
                 y: 10,
-                color: '',
+                color: '#ffffff',
                 fontSize: 0,
                 image: image,
-                height: image.height,
-                width: image.width,
+                height: 300,
+                width: 300,
             };
             setCanvasObjs([...canvasObjs, newImage]);
         }
@@ -78,25 +78,38 @@ const TextCanvas: React.FC = () => {
 
         // console.log('drawTexts entering forEach');
 
-        if (image) {
-            ctx.drawImage(image, 10, 10, 300, 300);
-        }
+        // if (image) {
+        //     ctx.drawImage(image, 10, 10, 300, 300);
+        // }
 
-        canvasObjs.forEach((text, index) => {
-            ctx.font = `${text.fontSize}px Arial`;
-            ctx.fillStyle = text.color;
-            ctx.fillText(text.text, text.x, text.y);
+        canvasObjs.forEach((canvasObj, index) => {
 
-            // console.log(`drawTexts selectedIndex: ${draggingIndex}`);
+            if (canvasObj.image) {
+                // console.log('drawTexts Image');
+                ctx.drawImage(canvasObj.image, canvasObj.x, canvasObj.y, canvasObj.width, canvasObj.height);
+                if (index === selectedIndex) {
+                    ctx.strokeStyle = 'red';
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(canvasObj.x, canvasObj.y, canvasObj.width, canvasObj.height);
+                }
+            }
+            else
+            {
+                ctx.font = `${canvasObj.fontSize}px Arial`;
+                ctx.fillStyle = canvasObj.color;
+                ctx.fillText(canvasObj.text, canvasObj.x, canvasObj.y);
 
-            if (index === selectedIndex) {
-                const textWidth = ctx.measureText(text.text).width;
-                const textHeight = text.fontSize;
-                ctx.strokeStyle = 'red';
-                ctx.lineWidth = 2;
-                ctx.strokeRect(text.x, text.y - textHeight, textWidth, textHeight);
+                // console.log(`drawTexts selectedIndex: ${draggingIndex}`);
 
-                // console.log(`drawTexts strokeRect: ${draggingIndex}`);
+                if (index === selectedIndex) {
+                    const textWidth = ctx.measureText(canvasObj.text).width;
+                    const textHeight = canvasObj.fontSize;
+                    ctx.strokeStyle = 'red';
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(canvasObj.x, canvasObj.y - textHeight, textWidth, textHeight);
+
+                    // console.log(`drawTexts strokeRect: ${draggingIndex}`);
+                }
             }
         });
     };
@@ -118,15 +131,13 @@ const TextCanvas: React.FC = () => {
     };
 
     const handleMouseDown = (event: React.MouseEvent<HTMLCanvasElement>) => {
-        // console.log('handleMouseDown');
+        console.log('handleMouseDown');
         const canvas = canvasRef.current;
         if (!canvas) return;
 
         const rect = canvas.getBoundingClientRect();
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
-
-        
 
         setSelectedIndex(null);
 
@@ -136,10 +147,22 @@ const TextCanvas: React.FC = () => {
             const canvasObj = canvasObjs[i];
 
             if (canvasObj.image) {
+                console.log('handleMouseDown Image');
+                const imageWidth = canvasObj.width;
+                const imageHeight = canvasObj.height;
 
+                if (x >= canvasObj.x && x <= canvasObj.x + imageWidth && y >= canvasObj.y && y <= canvasObj.y + imageHeight) {
+                    // console.log(`handlemousedown index: ${i}`);
+                    setDraggingIndex(i);
+                    setSelectedIndex(i);
+                    // console.log(`handlemousedown ${draggingIndex}`);
+                    setOffset({ x: x - canvasObj.x, y: y - canvasObj.y });
+                    break;
+                }
             }
             else
             {
+                console.log('handleMouseDown Text');
                 const textWidth = canvasObj.text.length * canvasObj.fontSize * 0.6; // Approximate width
                 const textHeight = canvasObj.fontSize; // Approximate height
 
