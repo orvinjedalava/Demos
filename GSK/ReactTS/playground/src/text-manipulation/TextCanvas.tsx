@@ -133,18 +133,26 @@ const TextCanvas: React.FC = () => {
         for (let i = 0; i < canvasObjs.length; i++) {
             // console.log(`x: ${x}, y: ${y}, event.clientX: ${event.clientX}, event.clientY: ${event.clientY}, rect.left: ${rect.left}, rect.top: ${rect.top}`);
             // console.log(`texts[${i}].x: ${texts[i].x}, texts[${i}].y: ${texts[i].y}`);
-            const text = canvasObjs[i];
-            const textWidth = text.text.length * text.fontSize * 0.6; // Approximate width
-            const textHeight = text.fontSize; // Approximate height
+            const canvasObj = canvasObjs[i];
 
-            if (x >= text.x && x <= text.x + textWidth && y >= text.y - textHeight && y <= text.y) {
-                // console.log(`handlemousedown index: ${i}`);
-                setDraggingIndex(i);
-                setSelectedIndex(i);
-                // console.log(`handlemousedown ${draggingIndex}`);
-                setOffset({ x: x - text.x, y: y - text.y });
-                break;
+            if (canvasObj.image) {
+
             }
+            else
+            {
+                const textWidth = canvasObj.text.length * canvasObj.fontSize * 0.6; // Approximate width
+                const textHeight = canvasObj.fontSize; // Approximate height
+
+                if (x >= canvasObj.x && x <= canvasObj.x + textWidth && y >= canvasObj.y - textHeight && y <= canvasObj.y) {
+                    // console.log(`handlemousedown index: ${i}`);
+                    setDraggingIndex(i);
+                    setSelectedIndex(i);
+                    // console.log(`handlemousedown ${draggingIndex}`);
+                    setOffset({ x: x - canvasObj.x, y: y - canvasObj.y });
+                    break;
+                }
+            }
+            
         }
         
         // drawTexts();
