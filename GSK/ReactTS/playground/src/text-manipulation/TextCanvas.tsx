@@ -23,6 +23,7 @@ const TextCanvas: React.FC = () => {
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
     const [image, setImage] = useState<HTMLImageElement | null>(null);
     const [offset, setOffset] = useState({ x: 0, y: 0 });
+    const [isSavingImage, setIsSavingImage] = useState(false);
 
     useEffect(() => {
         drawTexts();
@@ -62,6 +63,20 @@ const TextCanvas: React.FC = () => {
             setTextColor("#ffffff");
             setFontSize(20);
         }
+
+        if (isSavingImage) {
+            if (!canvasRef.current) return
+
+            const canvas = canvasRef.current
+            const image = canvas.toDataURL('image/png')
+            const link = document.createElement('a')
+            link.href = image
+            link.download = 'canvas-image.png'
+            link.click()
+
+            setIsSavingImage(false);
+        }
+        
     }, [selectedIndex])
 
     const drawTexts = () => {
@@ -228,6 +243,21 @@ const TextCanvas: React.FC = () => {
         }
     };
 
+    const saveCanvasAsImage = () => {
+        if (!canvasRef.current) return
+
+        setIsSavingImage(true);
+        setDraggingIndex(null);
+        setSelectedIndex(null);
+        
+        // const canvas = canvasRef.current
+        // const image = canvas.toDataURL('image/png')
+        // const link = document.createElement('a')
+        // link.href = image
+        // link.download = 'canvas-image.png'
+        // link.click()
+      }
+
     // useEffect(() => {
     //     const handleKeyDown = (event: KeyboardEvent) => {
     //         console.log('handleKeyDown via UseEffect');
@@ -278,6 +308,7 @@ const TextCanvas: React.FC = () => {
                     placeholder="Font size"
                 />
                 <button onClick={addText}>Add Text</button>
+                {/* <button>Bring to Top</button> */}
             </div>
             <div
                 onDrop={handleDrop}
@@ -290,6 +321,9 @@ const TextCanvas: React.FC = () => {
                 }}
             >
                 Drag and drop an image here
+            </div>
+            <div>
+                <button onClick={saveCanvasAsImage}>Save Image</button>
             </div>
         </div>
     );
